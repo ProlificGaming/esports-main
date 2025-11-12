@@ -1,0 +1,39 @@
+{
+  "name": "esports-main",
+  "version": "1.0.0",
+  "description": "The main esports application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProlificGaming/esports-main.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProlificGaming/esports-main/issues"
+  },
+  "homepage": "https://github.com/ProlificGaming/esports-main#readme",
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "@quixo3/prisma-session-store": "^3.1.13",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "prisma": "^6.19.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

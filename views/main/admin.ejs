@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/styles/styles.css">
+    </head>
+
+    <body>
+        <%- include('../utils/nav.ejs', {omit: false}); %>
+        
+        <section class="admin-log-in-section">
+            <h2><%= title %></h2>
+
+            <form action="/admin" method="POST">
+                <div>
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" name="adminUsername" required />
+                </div>
+
+                <div>
+                    <label for="adminPassword">Password</label>
+                    <input type="text" id="adminPassword" name="adminPassword" required />
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+
+            <div>
+                <a href="#">Forgot Username</a><a href="#">Forgot Password</a>
+            </div>
+
+            <div>
+                <a href="/admin/activate">Activate Admin Account</a>
+            </div>
+        </section>
+    </body>
+</html>

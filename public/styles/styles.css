@@ -1,0 +1,234 @@
+/* body - The entire body for the application. */
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #000000, #434343);  
+}
+
+/* * - All the elements in the application. */
+*{
+    box-sizing: border-box;
+    margin: 0; 
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* Main Navigation - The main navigation secton for the application. */
+#main-nav{
+    display: flex;
+    align-items: center;
+    gap: 100px;
+
+    /* border: 1px solid red;  */
+    padding: 5px;
+    background-color: #43434327;
+    color: #f3f4f6;
+}
+#main-nav > svg{ /* Menu & Log-In icons */
+    width: 50px; 
+    fill: #f3f4f6;
+    cursor: pointer; 
+}
+#main-nav > svg:nth-child(3){
+    margin-right: 60px;
+}
+#main-nav > svg:nth-child(3):hover{
+    fill: #fde68a;
+}
+#main-nav > h1{ /* Brand Title */ 
+    flex: 1;
+    cursor: pointer;  
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* |Log-In Window| */
+.log-in-window{ 
+    display: flex;
+    flex-direction: column; 
+    gap: 30px;
+
+    border: 1px solid #fde68a;
+    background-color: #fde68a;
+    color: #fb923c;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 100%;
+    transform: translateX(100%); 
+    transition-property: transform;
+    transition-duration: 0.6s;
+    transition-timing-function: ease;  
+    opacity: 0.9;
+    padding: 5px;
+}
+.open-log-in-window{ /* Opens log in window */ 
+    transform: translateX(0);
+}
+
+.log-in-window > div{ /* log in window|items */ 
+    border: 1px solid #f3f4f6;
+    border-radius: 10px; 
+}
+.log-in-window > div:nth-child(1) > svg{ /* Item One|Cancel Image */
+    width: 50px;
+    fill: #fb923c;
+    cursor: pointer; 
+}
+.log-in-window > div:nth-child(1) > svg:hover{
+    fill:#e7b40c; 
+}
+
+.log-in-window > div:nth-child(2){ /* Item Two */
+    padding: 12px; 
+}
+.log-in-window > div:nth-child(2) > h2{ /* Item Two|Header */
+    margin-bottom: 12px; 
+}
+.log-in-window > div:nth-child(2) > form{ /* Item Two|Form */
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+}
+.log-in-window > div:nth-child(2) > form > div > label{ /* Form|All Labels */
+    display: block;
+    font-size: 18px; 
+}
+.log-in-window > div:nth-child(2) > form > div > input{ /* Form|All Inputs */
+    width: 70%; 
+    padding: 5px;  
+    border: 1px solid #fde68a;
+    border-radius: 12px;  
+}
+.log-in-window > div:nth-child(2) > form > div button{ /* Form|Submit Button */
+    color: #f3f4f6;
+    font-size: 16px; 
+    padding: 3px 15px 3px 15px; 
+    cursor: pointer;
+    background-color: #fb923c;
+    border: 1px solid #fb923c; 
+    border-radius: 10px; 
+}
+.log-in-window > div:nth-child(2) > form > div button:hover{
+    background-color: #fb923cb9;
+    border: 1px solid #fb923c; 
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* |Admin| */
+.admin-log-in-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+
+    border: 1px solid white;
+    border-radius: 12px;
+    width: 800px;
+    height: 500px;
+    padding: 12px; 
+    margin: 50px auto;
+    color: #f3f4f6;
+}
+.admin-log-in-section > h2{
+    font-size: 30px;
+}
+.admin-log-in-section > form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    /* border: 1px solid white; */
+}
+.admin-log-in-section > form > div{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 1px; 
+}
+.admin-log-in-section > form > div > label{
+    font-size: 18px; 
+}
+.admin-log-in-section > form > div > input{
+    width: 270px;
+    border: 1px solid #f3f4f6;
+    border-radius: 12px; 
+    padding: 6px 12px 6px 12px;
+}
+.admin-log-in-section > form > div > button[type]{
+    padding: 5px 30px 5px 30px;
+    border-radius: 12px;
+    border: 1px solid #fde68a;
+    background-color: #fde68a;
+    font-size: 18px;
+    cursor: pointer;
+}
+.admin-log-in-section > form > div > button[type]:hover{
+    border: 1px solid #fde68aa8;
+    background-color: #fde68aa8;
+}
+
+/* Admin|Admin Activation */
+.admin-activation-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+
+    border: 1px solid white; 
+    border-radius: 12px;
+    color: #f3f4f6;
+    margin: 50px auto;
+    width: 800px;
+    padding: 12px;
+}
+.admin-activation-section > h2{
+    font-size: 30px; 
+}
+.admin-activation-section > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+
+    /* border: 1px solid white; */
+}
+.admin-activation-section > form > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 1px;
+}
+.admin-activation-section > form > div > label{
+    font-size: 18px; 
+}
+.admin-activation-section > form > div > input{
+    width: 270px; 
+    border: 1px solid #f3f4f6;
+    border-radius: 12px; 
+    padding: 6px 12px 6px 12px;
+}
+.admin-activation-section > form > div > button[type]{
+    padding: 5px 30px 5px 30px;
+    border-radius: 12px;
+    border: 1px solid #fde68a;
+    background-color: #fde68a;
+    font-size: 16px;
+    cursor: pointer;
+}
+.admin-activation-section > form > div > button[type]:hover{
+    border: 1px solid #fde68aa8;
+    background-color: #fde68aa8;
+}
+
+/* Admin Activation|Admin Set Credentials */
+.admin-set-credential-section{
+    border: 1px solid red; 
+}
+
+/* Admin Set Credentials|Admin Activation Successs */
+.admin-activation-success-section{
+    border: 1px solid red; 
+}

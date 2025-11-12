@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Activation</title>
+        <link rel="stylesheet" href="/styles/styles.css">
+    </head>
+
+    <body>
+        <%- include('../utils/nav.ejs', {omit: false}) %> 
+
+        <section class="admin-activation-section">
+            <h2>Admin Activation</h2>
+
+            <form action="/admin/activate" method="POST">
+                <div>
+                    <label for="email">Enter Email</label>
+                    <input type="email" id="email" name="email" placeholder="Associated Email" required/>
+                </div>
+                
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>
