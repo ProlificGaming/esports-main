@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><%= title %></title>
+        <title>Administration Login</title>
         <link rel="stylesheet" href="/styles/styles.css">
     </head>
 
@@ -11,7 +11,7 @@
         <%- include('../utils/nav.ejs', {omit: false}); %>
         
         <section class="admin-log-in-section">
-            <h2><%= title %></h2>
+            <h2>Administration Login</h2>
 
             <form action="/admin" method="POST">
                 <div>
@@ -21,11 +21,11 @@
 
                 <div>
                     <label for="adminPassword">Password</label>
-                    <input type="text" id="adminPassword" name="adminPassword" required />
+                    <input type="password" id="adminPassword" name="adminPassword" required />
                 </div>
 
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
 

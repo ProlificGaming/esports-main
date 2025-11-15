@@ -50,16 +50,31 @@ datasource db {
 -> username: username & password: Set later by the admin after activation.
 -> isActive: Prevents login until the admin has completed account setup.
 -> activationToken: Optional - Use this if you want to send a secure invite link instead of letting them 
-type their email directly.  */
+type their email directly.
+
+=> New fields added on 11-12-2025: You'll be able to invite new admins via email links
+that expire after activation (or after a set time). 
+-> activationToken: Unique token for sercure one-time link.
+-> tokenExpiresAt: Optional - you can expire invites after 24 hours. 
+-> isActive: Prevents login until the admin activates thier account. 
+*/
 // Admin Model: 
 model Admin {
   id                    String        @id @default(cuid())
-  email                 String        @unique // New Entry 
-  username              String        @unique
-  password              String                // hashed password (bcrypt)
+  email                 String        @unique // 1st New Entry 
+  username              String?       @unique
+  password              String?               // hashed password (bcrypt)
   role                  String        @default("admin") // optional: extend for roles later
-  isActive              Boolean       @default(false) // New Entry
-  activationToken       String? // New Entry
+  isActive              Boolean       @default(false) // 1st New Entry
+  activationToken       String?       @unique // 1st New Entry - 2nd New Entry
+  tokenExpiresAt        DateTime?     // 2nds New Entry. 
   createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
+  updatedAt             DateTime?     @updatedAt
+}
+
+model Session {
+  id String @id @default(cuid())
+  sid String @unique
+  data String
+  expiresAt DateTime
 }

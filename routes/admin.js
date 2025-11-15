@@ -8,23 +8,58 @@ const prisma = new PrismaClient();
 
 // Admin get route:
 adminRoute.get('/', (req, res) => {
-    res.status(200).render("main/admin", {
-        title: "Administration Log In",
-    });
+    res.status(200).render("main/admin");
 });
 
 // Admin post route:
-adminRoute.post('/', (req, res) => {
-    const {adminUsername, adminPassword } = req.body;
-    console.log("Admin Username: ", adminUsername); // Testing 
-    console.log("Admin Password: ", adminPassword); // Testing 
-
+adminRoute.post('/',
     passport.authenticate("local", {
         successRedirect: "/admin/dashboard",
-        failureRedirect: "/admin",
-        failureFlash: true, 
+        failureRedirect: "/",
     })
-});
+);
+
+// adminRoute.post("/", (req, res, next) => {
+//     passport.authenticate("local", (err, user, info) => {
+//         if (err) return next(err);
+//         if (!user) res.status(200).render("main/index", {
+//             title: "Prolific Gaming",
+//         });
+
+//         req.logIn(user, () => {
+//             if (err) return next(err);
+//             res.send("Logged In"); // Testing 
+//         });  
+//     })
+// })
+
+// Admin dashboard get route: 
+adminRoute.get('/dashboard', EnsureAdminAuthenticated, (req, res) => {
+    res.status(200).render("main/adminDashboard", {
+        username: req.user.username,
+    }); 
+}); 
+
+// EnsureAdminAuthenicated(): Test authentication to redirect the user to the admin dashboard: 
+function EnsureAdminAuthenticated(req, res, next){
+    if (req.isAuthenticated() && req.user.role === "admin")
+    {
+        console.log("Ready");
+        return next();
+    }
+    res.redirect('/admin');  
+}
+
+// admin logout get route: 
+adminRoute.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err)
+        {
+            return next(err);
+        }
+        res.redirect("/admin"); 
+    }); 
+})
 
 // Admin activate get route:  
 adminRoute.get("/activate", (req, res) => {
@@ -47,17 +82,22 @@ adminRoute.post("/activate", async (req, res) => {
     }
 
     // Render the form to set username and password:
-    res.render("main/adminSetCredentials", { email: admin.email });
+    res.render("main/adminSetCredentials", { email: email });
 
     // Redirect the new admin back to the admin username and password to log in. 
     // res.status(200).redirect("/admin"); 
 });
 
+// Admin activate get route (Temporary GET Request for style editing):
+// adminRoute.get("/activate/set-credentials", (req, res) => {
+//     res.render("main/adminSetCredentials", { email: null }); 
+// });
+
 // Admin activate post route: 
 adminRoute.post("/activate/set-credentials", async (req, res) => {
     const {email, setUsername, setPassword } = req.body;
 
-    const admin = await prisma.admin.findUnique({ where: { email } });
+    const admin = await prisma.admin.findUnique({ where: { email: email } });
     const user = await prisma.admin.findUnique({
         where: {
             username: setUsername, 
@@ -99,17 +139,11 @@ adminRoute.post("/activate/set-credentials", async (req, res) => {
     res.render("main/adminActivateSuccess", { username: setUsername }); 
 });
 
-// Admin dashboard get route: 
-adminRoute.get('/dashboard', EnsureAdminAuthenticated, (req, res) => {
-    res.status(200).send("Admin Dashboard"); 
-}); 
-
-function EnsureAdminAuthenticated(req, res, next){
-    if (req.isAuthenticated() && req.user.role === "admin")
-    {
-        return next();
-    }
-    res.redirect('/admin');  
-}
+// Admin Activate Success get route (Temporary get request for style editing):
+// adminRoute.get("/activate/admin-activate-success", (req, res) => {
+//     res.render("main/adminActivateSuccess", {
+//         username: null,
+//     }); 
+// }); 
 
 module.exports = adminRoute; 

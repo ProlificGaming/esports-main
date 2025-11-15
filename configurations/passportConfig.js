@@ -14,11 +14,11 @@ const prisma = new PrismaClient();
 
 function InitializePassport(passport){
     passport.use(
-        new LocalStrategy(async (username, password, done) => {
+        new LocalStrategy({usernameField: "adminUsername", passwordField: "adminPassword"}, async (username, password, done) => {
             try {
-                const admin = await prisma.admin.findUnique({ where: { username } });
+                const admin = await prisma.admin.findUnique({ where: { username: username } });
                 if (!admin) return done(null, false, { message: "No admin found" }); 
-                if (!admin.isActive) return done(null, false, { message: "Account not activated" }); 
+                // if (!admin.isActive) return done(null, false, { message: "Account not activated" }); 
 
                 const isMatch = await bcrypt.compare(password, admin.password); 
                 if (!isMatch) return done(null, false, { message: "Incorrect password" }); 
@@ -31,11 +31,13 @@ function InitializePassport(passport){
         })
     );
 
-    passport.serializeUser((admin, done) => done(null, admin.id)); 
+    passport.serializeUser((admin, done) => {
+        done(null, admin.id)
+    }); 
 
-    passport.deserializeUser(async (id, done) =>{
+    passport.deserializeUser(async (id, done) => {
         try {
-            const admin = await prisma.admin.findUnique({ where: { id } });
+            const admin = await prisma.admin.findUnique({ where: { id: id } });
             done(null, admin);
         }
         catch (err) {
@@ -45,4 +47,4 @@ function InitializePassport(passport){
 }
 
 
-module.exports = {InitializePassport}; 
+module.exports = InitializePassport; 

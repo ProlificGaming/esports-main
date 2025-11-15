@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Admin" ALTER COLUMN "username" DROP NOT NULL,
+ALTER COLUMN "password" DROP NOT NULL,
+ALTER COLUMN "role" DROP NOT NULL;

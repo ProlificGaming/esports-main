@@ -117,7 +117,7 @@ body{
 
 /*************************************************************************************************************************************/
 /*************************************************************************************************************************************/
-/* |Admin| */
+/* |Admin Section| */
 .admin-log-in-section{
     display: flex;
     flex-direction: column;
@@ -225,10 +225,76 @@ body{
 
 /* Admin Activation|Admin Set Credentials */
 .admin-set-credential-section{
-    border: 1px solid red; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+
+    border: 1px solid white;
+    border-radius: 12px;
+    margin: 50px auto;
+    width: 800px;
+    color: #f3f4f6; 
+    padding: 12px;
+}
+.admin-set-credential-section > h2{
+    font-size: 30px;
+}
+.admin-set-credential-section > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+}
+.admin-set-credential-section > form > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px; 
+}
+.admin-set-credential-section > form > div > label{
+    font-size: 18px; 
+}
+.admin-set-credential-section > form > div > input{
+    border: 1px solid #f3f4f6;
+    border-radius: 12px; 
+    width: 270px;
+    padding: 6px 12px 6px 12px; 
+}
+.admin-set-credential-section > form > div > button[type]{
+    background-color: #fde68a;
+    border: 1px solid #fde68a;
+    border-radius: 12px; 
+    padding: 5px 30px 5px 30px; 
+    font-size: 16px; 
+    cursor: pointer;
+}
+.admin-set-credential-section > form > div > button[type]:hover{
+    background-color: #fde68aa8;
+    border: 1px solid #fde68aa8;
 }
 
 /* Admin Set Credentials|Admin Activation Successs */
 .admin-activation-success-section{
-    border: 1px solid red; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+
+    padding: 12px;
+    border: 1px solid white;
+    border-radius: 12px;
+    width: 800px;
+    margin: 50px auto;  
+    color: #f3f4f6;
 }
+.admin-activation-success-section > h2{
+    font-size: 30px; 
+}
+.admin-activation-success-section > p{
+    font-size: 18px;
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* Other */

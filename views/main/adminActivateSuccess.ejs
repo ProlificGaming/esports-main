@@ -4,9 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Activation Success</title>
+        <link rel="stylesheet" href="/styles/styles.css">
     </head>
 
     <body>
+        <%- include("../utils/nav.ejs", {omit: false}) %> 
+        
         <section class="admin-activation-success-section">
             <h2>Welcome <%= username %></h2>
             <p>Your admin account has been activated. You can now <a href="/admin">Log in</a>.</p>
