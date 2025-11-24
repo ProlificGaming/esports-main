@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Invite</title>
+        <link rel="stylesheet" href="/styles/adminStyles.css">
+    </head>
+
+    <body>
+        <%- include("../utils/adminNav.ejs", { logInColor: '#65a30d' }) %>
+        
+        <main id="admin-invite-main">
+            <section class="profile-info">
+                <section class="profile-info">
+                    <h2>Welcome <%= username %></h2> 
+                    <p>Role: <%= role %></p>
+                </section>
+            </section>
+
+            <%- include("../utils/adminSidebar.ejs")  %>
+
+            <section class="admin-invite-section">
+                <section class="admin-invite-section-1">
+                    <h2>Admin Invite</h2>
+
+                    <form action="/admin/dashboard/invite" method="POST">
+                        <div>
+                            <label for="inviteRole">Invite Type</label>
+                            <select name="inviteRole" id="inviteRole">
+                                <option value="SuperAdmin">Super Admin</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Mod">Mod</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="inviteEmail">Email Invite</label>
+                            <input type="email" name="inviteEmail" id="inviteEmail" placeholder="Please enter an email" required />
+                        </div>
+
+                        <div>
+                            <button type="submit">Send Invite</button>
+                        </div>
+                    </form>
+                </section>
+            </section>
+
+         
+        </main>  
+    </body>
+</html>

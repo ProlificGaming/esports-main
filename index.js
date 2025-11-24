@@ -18,11 +18,17 @@ async function main() {
     // });
     // console.log("Admin seeded. Awaiting activation."); 
 
-    const email = await prisma.admin.findUnique({
+    // const email = await prisma.admin.findUnique({
+    //     where: {
+    //         email: "ibenge908@gmail.com"
+    //     }
+    // });
+
+    const email = await prisma.admin.findMany({
         where: {
             email: "ibenge908@gmail.com"
         }
-    });
+    })
     console.log(email); // testing 
 }
 

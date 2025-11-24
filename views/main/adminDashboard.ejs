@@ -5,12 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
         <link rel="stylesheet" href="/styles/adminStyles.css">
+        <script type="module" src="/windows/adminProfileWindow.js" defer></script>
     </head>
 
     <body>
-        <%- include('../utils/adminNav.ejs') %> 
+        <%- include('../utils/adminNav.ejs', { logInColor: '#65a30d' }) %>
 
-        <h2>Welcome <%= username %></h2>
+        <main id="dashboard-main">
+            <section class="profile-info">
+                <h2>Welcome <%= username %></h2> 
+                <p>Role: <%= role %></p>
+            </section>
+
+            <% if (role === 'SuperAdmin'){ %>
+                <%- include('../utils/adminSidebar.ejs') %> 
+            <% }else if(role === 'Admin'){ %> 
+                <!-- Admin Sidebar -->
+            <% }else if (role === 'Mod'){ %>
+                <!-- Mode Sidebar -->
+            <% } %>
+
+            <section class="dashboard-section">
+                Public Profile - Dashboard Section
+            </section>
+        </main>
+
+        <section class="dashboard-profile-window">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                </svg>
+            </div>
+        </section>
+
         <a href="/admin/logout">Log Out</a>
     </body>
 </html>

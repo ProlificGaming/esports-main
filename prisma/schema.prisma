@@ -61,13 +61,18 @@ that expire after activation (or after a set time).
 // Admin Model: 
 model Admin {
   id                    String        @id @default(cuid())
-  email                 String        @unique // 1st New Entry 
+  email                 String?       // 1st New Entry 
   username              String?       @unique
   password              String?               // hashed password (bcrypt)
   role                  String        @default("admin") // optional: extend for roles later
   isActive              Boolean       @default(false) // 1st New Entry
   activationToken       String?       @unique // 1st New Entry - 2nd New Entry
   tokenExpiresAt        DateTime?     // 2nds New Entry. 
+
+  // Password Reset Fields:
+  passwordResetToken    String?
+  passwordResetExpires  DateTime?
+  
   createdAt             DateTime      @default(now())
   updatedAt             DateTime?     @updatedAt
 }

@@ -1,11 +1,12 @@
 const crypto = require("node:crypto");
 const { PrismaClient } = require("../generated/prisma");
 const mailSys = require("../utils/mailer.js");
+require('dotenv').config();
 
 const prisma = new PrismaClient(); 
 
 const inviteAdmin = async(req, res) => {
-    const { email } = req.body;
+    const { inviteEmail, inviteRole } = req.body;
 
     try{
         // Generate token + expiration (e.g., 24 hours)
@@ -14,7 +15,8 @@ const inviteAdmin = async(req, res) => {
 
         const newAdmin = await prisma.admin.create({
             data: {
-                email: email,
+                email: inviteEmail,
+                role: inviteRole,
                 activationToken: token,
                 tokenExpiresAt: expiresAt,
                 isActive: false, 
@@ -23,9 +25,9 @@ const inviteAdmin = async(req, res) => {
 
         // Send email invite:
         const activationLink = `${process.env.TEMP_BASE_URL}/admin/activate/${token}`;
-        await mailSys.sendInvite(email, activationLink); 
+        await mailSys.sendInvite(inviteEmail, activationLink, inviteRole); 
 
-        res.status(200).json({ message: `Invite sent to ${email}`, admin: newAdmin });
+        res.status(200).json({ message: `Invite sent to ${inviteEmail}`, admin: newAdmin });
     }
     catch (err){
         res.status(500).json({ error: "Failed to invite admin." });  

@@ -33,6 +33,26 @@ app.use(express.static("public"));
 app.use(express.json());
 console.log(Object.keys(prisma)); 
 
+/** |Deep Notes|
+ * => email functionality:
+ * I don't want the Admin to register as a Admin, but to be invited in 
+ * as an Admin since they are an employee. Is it possible to have them sign in with
+ * an email that I already have linked in the database, and then from there they can 
+ * change there username and password to whatever they want.
+ * 
+ * -> This is called controlled administrative access: We will use the
+ * activation-token + email-invite version.
+ * 1. Updated Prisma schema (adds token + expiration)
+ * 2. Admins invitation generator (for you / superadmin use)
+ * 3. Email invite system (using Nodemailer)
+ * 4. Secure activation routes
+ * 5. EJS template for the email + activation page. 
+ * 
+ * -> When using nodemailer - make sure to set EMAIL_USER and EMAIL_PASS in .env, and enable "App Passwords"
+ * for Gmail or use a real SMTP (Simple Mail Transfer Protocol) service (like Mailgun, SendGrid, or Resend).
+ * 
+ */
+
 /**
  * -------------- Session Store--------------
  */
