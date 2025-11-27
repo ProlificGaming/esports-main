@@ -5,10 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Administration Login</title>
         <link rel="stylesheet" href="/styles/styles.css">
+        <script src="windows/loginWindow.js" defer></script>
     </head>
 
     <body>
         <%- include('../utils/nav.ejs', {omit: false}); %>
+        
+        <%- include('../utils/logInWindow.ejs') %> 
         
         <section class="admin-log-in-section">
             <h2>Administration Login</h2>

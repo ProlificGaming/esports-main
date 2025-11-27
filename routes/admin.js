@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 
 const adminInvites = require("../controllers/adminInviteController.js");
 const adminForgotUsernamePassword = require("../controllers/adminControllers/adminForgotUsernamePassword.js"); 
+const { validateUsername, validatePassword } = require("../utils/validators.js"); 
 
 const adminRoute = express();
 const prisma = new PrismaClient(); 
@@ -19,7 +20,19 @@ let adminDashboardSidebarLinks = [
 
 // Admin login get route:
 adminRoute.get('/', (req, res) => {
-    res.status(200).render("main/admin");
+    if (req.isUnauthenticated())
+    {
+        res.status(200).render("main/admin", {
+            user: req.user, // For: logInWindow.ejs template.
+        });
+    }
+    else
+    {
+        res.status(200).render("main/index", {
+            title: "Prolific Gaming", 
+            user: req.user,
+        }); 
+    }
 });
 
 // Admin post route:
@@ -29,20 +42,6 @@ adminRoute.post('/',
         failureRedirect: "/",
     })
 );
-
-// Admin login post route:
-// adminRoute.post("/", (req, res, next) => {
-//     console.log('User: ', req.user.username);
-//     passport.authenticate("local", (err, user, info, status) => {
-//         if (err) return next(err);
-//         if (!user) res.status(200).render("main/admin");
-
-//         // req.logIn(user, () => {
-//         //     if (err) return next(err);
-            
-//         // });  
-//     });
-// })
 
 // Admin dashboard get route: 
 adminRoute.get('/dashboard', EnsureAdminAuthenticated, (req, res) => {
@@ -137,7 +136,7 @@ adminRoute.get("/activate", (req, res) => {
 // Admin activate post route
 adminRoute.post("/activate", async (req, res) => {
     const { email } = req.body;
-    const admin = await prisma.admin.findUnique({ where: { email } });
+    const admin = await prisma.admin.findMany({ where: { email } });
 
     if (!admin)
     {
@@ -149,8 +148,17 @@ adminRoute.post("/activate", async (req, res) => {
         return res.render("main/adminActivate", { error: "Account already activated. Please log in." }); 
     }
 
-    // Render the form to set username and password:
-    res.render("main/adminSetCredentials", { email: email });
+    // Render the form to set username and password (Note: This is technically your GET request for this route):
+    res.render("main/adminSetCredentials", { 
+        email: email, 
+        token: admin[0].activationToken,
+        noUsernameError: true,
+        noPasswordError: true,
+        usernameExist: false,
+        usernameRules: {},
+        passwordRules: {},
+        usernameExistMssg: "This username already exist. Please choose another one.", 
+    });
 
     // Redirect the new admin back to the admin username and password to log in. 
     // res.status(200).redirect("/admin"); 
@@ -161,55 +169,121 @@ adminRoute.get("/activate/:token", async (req, res) => {
     const { token } = req.params; 
 
     const admin = await prisma.admin.findUnique({ where: { activationToken: token } }); 
-    if (!admin) return res.render("adminActivateError", { error: "Invalid token." }); 
+    if (!admin) return res.render("main/adminActivateError", { error: "Invalid token." }); 
 
     if (admin.isActive)
     {
-        return res.render("adminActivateError", { error: "Account already activated" }); 
+        return res.render("main/adminActivateError", { error: "Account already activated" }); 
     }
 
     if (admin.tokenExpiresAt && admin.tokenExpiresAt < new Date())
     {
-        return res.render("adminActivateError", { error: "Activation link expired." }); 
+        return res.render("main/adminActivateError", { error: "Activation link expired." }); 
     }
 
-    res.render("main/adminSetCredentials", {email: admin.email, token: token }); 
+    res.render("main/adminSetCredentials", {email: admin.email, token: token}); 
 });
-
-// Admin activate get route (Temporary GET Request for style editing):
-// adminRoute.get("/activate/set-credentials", (req, res) => {
-//     res.render("main/adminSetCredentials", { email: null }); 
-// });
 
 // Admin activate post route: 
 adminRoute.post("/activate/set-credentials", async (req, res) => {
-    const {token, setUsername, setPassword } = req.body;
+    const { userToken, userEmail, setUsername, setPassword } = req.body;
 
-    const admin = await prisma.admin.findUnique({ where: { activationToken: token } });
-    // const admin = await prisma.admin.findUnique({ where: { email: email } });
-    const user = await prisma.admin.findUnique({
-        where: {
-            username: setUsername, 
-        },
+    // Check activation token:
+    const admin = await prisma.admin.findMany({
+        where:{
+            activationToken: userToken,
+        }
     }); 
 
-    if (user !== null)
+    // Check if the username already exist: 
+    const usernameExist = await prisma.admin.findUnique({
+        where: {
+            username: setUsername,
+        }
+    });
+
+    // validate username and password: 
+    if ((!validateUsername(setUsername)) || (!validatePassword(setPassword)))
     {
+        return res.status(400).render("main/adminSetCredentials", {
+            email: userEmail,
+            token: userToken, 
+            noUsernameError: validateUsername(setUsername),
+            noPasswordError: validatePassword(setPassword),
+            usernameExist: false,
+            usernameRules: {
+                invalid: "Invalid username format:",
+                characters: "Needs to be 6-20 characters long.",
+                includes: "Can include letters, numbers, periods, and underscores.",
+                noPunc: "No consecutive punctuation: .., __, ._, etc.",
+                noEndPunc: "No ending punctuation or symbols (!@#$%^&*-=+_).",
+                start: "Must start with a letter.", 
+                validExample: "Valid usernames: john_admin, super.mod01, alex92, and Admin_Team1.",
+            },
+            passwordRules: {
+                invalid: "Invalid password format:",
+                characters: "Must be 12 characters or more.",
+                uppercase: "Must contain 1 uppercase character.", 
+                lowercase: "Must contain 1 lowercase character.",
+                digit: "Must contain at least 1 digit.", 
+                special: 'Must contain at least 1 special character (!@#$%^&*()_+-=[]{};:"\',.<>\?)',
+                spaces: "Can't contain spaces",
+                validExample: "Valid passwords: ProlificAdmin#2025, SecurePass_88!!, ModAccess@Level2", 
+            },
+            usernameExistMssg: "This username already exist. Please choose another one.",
+            
+        });
+    }
+    
+
+    // If the new admin username is already exist on another admin file. 
+    // TODO: This still needs to be unit tested.
+    if (usernameExist){
         return res.status(404).render("main/adminSetCredentials", {
-            error: "This username already exist. Please choose another one.",
-        }); 
+            email: userEmail,
+            token: userToken, 
+            noUsernameError: validateUsername(setUsername),
+            noPasswordError: validatePassword(setPassword),
+            usernameExist: true,
+            usernameRules: {
+                invalid: "Invalid username format:",
+                characters: "Needs to be 6-20 characters long.",
+                includes: "Can include letters, numbers, periods, and underscores.",
+                noPunc: "No consecutive punctuation: .., __, ._, etc.",
+                noEndPunc: "No ending punctuation or symbols (!@#$%^&*-=+_).",
+                start: "Must start with a letter.", 
+                validExample: "Valid usernames: john_admin, super.mod01, alex92, and Admin_Team1.",
+            },
+            passwordRules: {
+                invalid: "Invalid password format:",
+                characters: "Must be 12 characters or more.",
+                uppercase: "Must contain 1 uppercase character.", 
+                lowercase: "Must contain 1 lowercase character.",
+                digit: "Must contain at least 1 digit.", 
+                special: 'Must contain at least 1 special character (!@#$%^&*()_+-=[]{};:"\',.<>\?)',
+                spaces: "Can't contain spaces",
+                validExample: "Valid passwords: ProlificAdmin#2025, SecurePass_88!!, ModAccess@Level2", 
+            },
+            usernameExistMssg: "This username already exist. Please choose another one.",
+        });
     }
 
+    // If the admin doesn't exist in the database:
+    // TODO: This still needs to be unit tested.
     if (!admin)
     {
-        return res.status(404).render("main/adminSetCredentials", {
+        return res.status(404).render("main/adminSetCredentialError", {
+            title: "Admin Set Credential Error", 
             error: "Admin not found. Contact admin support for more help.",
         });  
     }
 
+    // If the admin already has an active account with their general email in the database:
+    // TODO: This still needs to be unit tested. 
     if (admin.isActive)
     {
-        return res.status(400).render("main/adminSetCredentials", {
+        return res.status(404).render("main/adminSetCredentialError", {
+            title: "Admin Set Credential Active", 
             error: "This account is already active", 
         }); 
     }
@@ -222,7 +296,7 @@ adminRoute.post("/activate/set-credentials", async (req, res) => {
     const hashedPassword = await bcrypt.hash(setPassword, 10); 
 
     await prisma.admin.update({
-        where: { activationToken: token },
+        where: { activationToken: userToken },
         data: {
             username: setUsername, 
             password: hashedPassword,
@@ -242,6 +316,17 @@ adminRoute.post("/activate/set-credentials", async (req, res) => {
 //     }); 
 // }); 
 
+/** |Password & Username Recovery|
+ * ==> Routes: /forgot-username; /forgot-password; and /reset-password/:token
+ * 
+ * ==> What these routes can do: 
+ * -> Username recovery
+ * -> Password reset
+ * -> Email-based admin identity flow
+ * -> Token expiration logic
+ * -> No account enumeration leaks
+ * -> Production-grade nodemailer integration. 
+ */
 // forgot-username: GET and POST routes:
 adminRoute.get("/forgot-username", adminForgotUsernamePassword.adminShowForgotUsernamePageGet);
 adminRoute.post("/forgot-username", adminForgotUsernamePassword.adminSendUsernameReminderPost); 
@@ -263,7 +348,7 @@ adminRoute.post("/reset-password/:token", adminForgotUsernamePassword.adminReset
 // adminRoute.get("/reset-password", (req, res) => res.render("adminUtils/adminResetPassword", {token: null})); 
 // adminRoute.get("/reset-password", (req, res) => res.render("adminUtils/adminResetPasswordSuccess")); 
 
-adminRoute.get("/reset-password", (req, res) => res.render('adminUtils/adminResetPasswordExpired')); 
+// adminRoute.get("/reset-password", (req, res) => res.render('adminUtils/adminResetPasswordExpired')); 
 
 
 module.exports = adminRoute; 

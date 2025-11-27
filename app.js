@@ -51,6 +51,14 @@ console.log(Object.keys(prisma));
  * -> When using nodemailer - make sure to set EMAIL_USER and EMAIL_PASS in .env, and enable "App Passwords"
  * for Gmail or use a real SMTP (Simple Mail Transfer Protocol) service (like Mailgun, SendGrid, or Resend).
  * 
+ * ===> |Enforceable username + password creation system for admin-invite workflow|
+ * => Production-ready setup:
+ * -> Username rules
+ * -> Password rules
+ * -> Validation functions
+ * -> Integration inside your "Activate Admin Invite" endpoint
+ * -> Error messages for frontend
+ * -> Optional: password strength meter (if you want it)
  */
 
 /**
@@ -86,7 +94,8 @@ app.use(passport.session());
 // Index route:
 app.get("/", (req, res) => {
     res.status(200).render("main/index", {
-        title: "Prolific Gaming", 
+        title: "Prolific Gaming",
+        user: req.user,
     });
 });
 

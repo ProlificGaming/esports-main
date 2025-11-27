@@ -24,15 +24,26 @@ body{
     background-color: #43434327;
     color: #f3f4f6;
 }
-#main-nav > svg{ /* Menu & Log-In icons */
+#main-nav > svg{
+    width: 50px;
+    fill: #f3f4f6; 
+    cursor: pointer; 
+}
+
+#main-nav > span:nth-child(3){
+    display: flex;
+    align-items: center; 
+    border: 1px solid orange;
+}
+#main-nav > span:nth-child(3) > svg{ /* Menu & Log-In icons */
     width: 50px; 
     fill: #f3f4f6;
     cursor: pointer; 
 }
-#main-nav > svg:nth-child(3){
+#main-nav > span:nth-child(3) > svg{
     margin-right: 60px;
 }
-#main-nav > svg:nth-child(3):hover{
+#main-nav > span:nth-child(3) > svg:hover{
     fill: #fde68a;
 }
 #main-nav > h1{ /* Brand Title */ 
@@ -70,7 +81,12 @@ body{
 .log-in-window > div{ /* log in window|items */ 
     border: 1px solid #f3f4f6;
     border-radius: 10px; 
+    background-color: rgba(255, 255, 255, 0.233); 
 }
+.log-in-window > div:hover{
+    background-color: rgba(255, 255, 255, 0.550); 
+}
+
 .log-in-window > div:nth-child(1) > svg{ /* Item One|Cancel Image */
     width: 50px;
     fill: #fb923c;
@@ -81,27 +97,59 @@ body{
 }
 
 .log-in-window > div:nth-child(2){ /* Item Two */
+    display: flex; 
+    align-items: center;
+    gap: 10px; 
+
+    padding: 5px; 
+}
+.log-in-window > div:nth-child(2) > img[src]{ /* Item Two|Profile Image */ 
+    border-radius: 20px;  
+    padding: 30px; 
+
+    border: 1px solid black;  
+}
+.log-in-window > div:nth-child(2) > div{ /* Item Two|Profile Name & View Dashboard Link*/ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; 
+
+    /* border: 1px solid black;  */
+}
+.log-in-window > div:nth-child(2) > div > span{
+    font-size: 25px; 
+}
+.log-in-window > div:nth-child(2) > div > a[href]{
+    text-decoration: none;
+    color: #fb923c;
+    font-size: 18px;  
+}
+.log-in-window > div:nth-child(2) > div > a[href]:hover{
+    text-decoration: underline; 
+}
+
+.log-in-window > div:nth-child(3){ /* Item Three */
     padding: 12px; 
 }
-.log-in-window > div:nth-child(2) > h2{ /* Item Two|Header */
+.log-in-window > div:nth-child(3) > h2{ /* Item Three|Header */
     margin-bottom: 12px; 
 }
-.log-in-window > div:nth-child(2) > form{ /* Item Two|Form */
+.log-in-window > div:nth-child(3) > form{ /* Item Three|Form */
     display: flex;
     flex-direction: column; 
     gap: 10px; 
 }
-.log-in-window > div:nth-child(2) > form > div > label{ /* Form|All Labels */
+.log-in-window > div:nth-child(3) > form > div > label{ /* Form|All Labels */
     display: block;
     font-size: 18px; 
 }
-.log-in-window > div:nth-child(2) > form > div > input{ /* Form|All Inputs */
+.log-in-window > div:nth-child(3) > form > div > input{ /* Form|All Inputs */
     width: 70%; 
     padding: 5px;  
     border: 1px solid #fde68a;
     border-radius: 12px;  
 }
-.log-in-window > div:nth-child(2) > form > div button{ /* Form|Submit Button */
+.log-in-window > div:nth-child(3) > form > div button{ /* Form|Submit Button */
     color: #f3f4f6;
     font-size: 16px; 
     padding: 3px 15px 3px 15px; 
@@ -110,9 +158,37 @@ body{
     border: 1px solid #fb923c; 
     border-radius: 10px; 
 }
-.log-in-window > div:nth-child(2) > form > div button:hover{
+.log-in-window > div:nth-child(3) > form > div button:hover{
     background-color: #fb923cb9;
     border: 1px solid #fb923c; 
+}
+.log-in-window > div:nth-child(3) > p{ /* Item Three|para=Role */ 
+    font-size: 18px; 
+}
+
+.log-in-window-item-four{ /* Item Four */ 
+    padding: 12px; 
+    font-size: 18px; 
+}
+.log-in-window-item-four > a[href]{ /* Item Four|Personal Profile link */
+    color: #fb923c;
+    text-decoration: none; 
+}
+.log-in-window-item-four > a[href]:hover{
+    text-decoration: underline; 
+}
+
+
+.log-in-window-item-five{ /* Item Five */
+    font-size: 18px; 
+    padding: 12px;
+}
+.log-in-window-item-five > a[href]{ /* Item Five|Logout link */ 
+    color: #fb923c;
+    text-decoration: none; 
+}
+.log-in-window-item-five > a[href]:hover{
+    text-decoration: underline; 
 }
 
 /*************************************************************************************************************************************/
@@ -272,6 +348,49 @@ body{
 .admin-set-credential-section > form > div > button[type]:hover{
     background-color: #fde68aa8;
     border: 1px solid #fde68aa8;
+}
+
+.admin-set-credential-username-exist{ /* Set Credential Username Exist */
+    border: 1px solid red;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 12px; 
+}
+.admin-set-credential-username-exist > p{
+    text-align: center; 
+    font-size: 18px; 
+}
+
+.admin-set-credential-username-error{ /* Set Credential Username Error */
+    border: 1px solid red;
+    border-radius: 12px; 
+    padding: 5px; 
+    margin-bottom: 12px; 
+}
+.admin-set-credential-username-error > h3{
+    text-align: center; 
+}
+.admin-set-credential-username-error > ul > li{
+    font-size: 18px; 
+}
+.admin-set-credential-username-error > ul > li:nth-child(6){
+    color: #fde68a; 
+}
+
+.admin-set-credential-password-error{ /* Set Credential Password Error */
+    border: 1px solid red;  
+    border-radius: 12px; 
+    padding: 5px; 
+    margin-bottom: 12px; 
+}
+.admin-set-credential-password-error > h3{
+    text-align: center; 
+}
+.admin-set-credential-password-error > ul > li{
+    font-size: 18px; 
+}
+.admin-set-credential-password-error > ul > li:nth-child(7){
+    color: #fde68a; 
 }
 
 /* Admin Set Credentials|Admin Activation Successs */
@@ -523,4 +642,10 @@ body{
 }
 .admin-reset-password-expired-section > p{
     font-size: 18px; 
+}
+.admin-reset-password-expired-section > p > a[href]{
+    color: #fde68a;
+}
+.admin-reset-password-expired-section > p > a[href]:hover{
+    text-decoration: none; 
 }

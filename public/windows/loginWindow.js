@@ -1,6 +1,6 @@
-const logInAcctImage = document.querySelector('#main-nav > svg:nth-child(3)'); 
+const logInAcctImage = document.querySelector('#main-nav > span > svg');
 const logInWindow = document.querySelector('.log-in-window');
-const logInWindowCloseButton = document.querySelector('.log-in-window > div:nth-child(1) > svg'); 
+const logInWindowCloseButton = document.querySelector('.log-in-window > div:nth-child(1) > svg');
 
 logInAcctImage.addEventListener('click', OpenLogInAcctWindow);
 logInWindowCloseButton.addEventListener('click', CloseLogInAcctWindow);

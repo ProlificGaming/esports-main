@@ -1,0 +1,60 @@
+<section class="log-in-window">
+    <div class="log-in-window-item-one">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+        </svg>
+    </div>
+
+    <div class="log-in-window-item-two">
+        <% if (user && user.role === "SuperAdmin"){ %>
+            <img src="" alt="">
+            <div>
+                <span><%= user.username %></span>
+                <a href="/admin/dashboard">View admin dashboard</a>
+            </div>
+        <% } else { %>
+                <div>Not logged in</div>
+        <% } %>
+    </div>
+
+    <div class="log-in-window-item-three">
+        <% if (user && user.role === "SuperAdmin"){ %> 
+            <p>Role: <span>Super Admin</span></p>
+        <% } else { %> 
+            <h2>Member Login</h2>
+            <form action="/" method="POST">
+                <div>
+                    <label for="admin-username">Username</label>
+                    <input type="text" id="admin-username" name="admin-username" required /> 
+                </div>
+
+                <div>
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" name="admin-password" required />
+                </div>
+
+                <div>
+                    <button type="submit">Sumbit</button>
+                </div>
+            </form>
+        <% } %> 
+    </div>
+
+    <div class="log-in-window-item-four">
+        <% if (user && user.role === "SuperAdmin"){ %> 
+            <a href="#">Personal Profile</a>
+        <% } else { %>
+            <div>Forgot Password</div>
+            <div>Forgot Username</div>
+            <div>Sign Up</div>
+        <% } %> 
+    </div>
+
+    <div class="log-in-window-item-five">
+        <% if (user && (user.role === "SuperAdmin" || user.role === "Admin" || user.role === "Mod")) { %> 
+            <a href="/admin/logout">Logout</a>
+        <% } else{ %>
+            <a href="/admin">Admin log in</a>
+        <% } %>
+    </div>
+</section>
