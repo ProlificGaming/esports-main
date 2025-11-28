@@ -299,6 +299,29 @@ body{
     background-color: #fde68aa8;
 }
 
+.admin-activation-error-section{ /* Activation Error Section (ejs template for a routed page) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+
+    border: 1px solid white; 
+    border-radius: 12px; 
+    color: #f3f4f6;
+    padding: 10px; 
+    margin: 50px auto; 
+    width: 800px; 
+}
+.admin-activation-error-section > p{
+    font-size: 18px;  
+}
+.admin-activation-error-section > p > a{
+    color: #fde68a;
+}
+.admin-activation-error-section > p > a:hover{
+    text-decoration: none; 
+}
+
 /* Admin Activation|Admin Set Credentials */
 .admin-set-credential-section{
     display: flex;
@@ -391,6 +414,30 @@ body{
 }
 .admin-set-credential-password-error > ul > li:nth-child(7){
     color: #fde68a; 
+}
+
+.admin-set-credentials-error-section{ /* Set Credentials Error section (ejs template for a routed page) */ 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+
+    border: 1px solid white;
+    border-radius: 12px;  
+    width: 800px; 
+    margin: 50px auto; 
+    padding: 20px; 
+    color: #f3f4f6;
+    text-align: center; 
+}
+.admin-set-credentials-error-section > p{
+    font-size: 18px;  
+}
+.admin-set-credentials-error-section > p > a{
+    color: #fde68a;
+}
+.admin-set-credentials-error-section > p > a:hover{
+    text-decoration: none;  
 }
 
 /* Admin Set Credentials|Admin Activation Successs */

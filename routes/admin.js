@@ -140,12 +140,16 @@ adminRoute.post("/activate", async (req, res) => {
 
     if (!admin)
     {
-        return res.render("main/adminActivate", {error: "Email not found" });
+        return res.render("main/adminActivate", {
+            error: "Email not found" 
+        });
     }
 
     if (admin.isActive)
     {
-        return res.render("main/adminActivate", { error: "Account already activated. Please log in." }); 
+        return res.render("main/adminActivate", {
+            error: "Account already activated. Please log in." 
+        }); 
     }
 
     // Render the form to set username and password (Note: This is technically your GET request for this route):
@@ -159,9 +163,6 @@ adminRoute.post("/activate", async (req, res) => {
         passwordRules: {},
         usernameExistMssg: "This username already exist. Please choose another one.", 
     });
-
-    // Redirect the new admin back to the admin username and password to log in. 
-    // res.status(200).redirect("/admin"); 
 });
 
 // Admin activate get route - /admin/activate/:token
@@ -169,19 +170,34 @@ adminRoute.get("/activate/:token", async (req, res) => {
     const { token } = req.params; 
 
     const admin = await prisma.admin.findUnique({ where: { activationToken: token } }); 
+
     if (!admin) return res.render("main/adminActivateError", { error: "Invalid token." }); 
 
     if (admin.isActive)
     {
-        return res.render("main/adminActivateError", { error: "Account already activated" }); 
+        return res.render("main/adminActivateError", { 
+            error: "Account already activated" 
+        }); 
     }
 
     if (admin.tokenExpiresAt && admin.tokenExpiresAt < new Date())
     {
-        return res.render("main/adminActivateError", { error: "Activation link expired." }); 
+        return res.render("main/adminActivateError", { 
+            error: "Activation link expired." 
+        }); 
     }
 
-    res.render("main/adminSetCredentials", {email: admin.email, token: token}); 
+    // Render the form to set username and password (Note: This is technically your GET request for this route):
+    res.render("main/adminSetCredentials", {
+        email: admin.email, 
+        token: token,
+        noUsernameError: true, 
+        noPasswordError: true,
+        usernameExist: false,
+        usernameRules: {},
+        passwordRules: {},
+        usernameExistMssg: "This username already exist. Please choose another one.",
+    }); 
 });
 
 // Admin activate post route: 
@@ -272,9 +288,11 @@ adminRoute.post("/activate/set-credentials", async (req, res) => {
     // TODO: This still needs to be unit tested.
     if (!admin)
     {
+        const setCredentialErrorMssg = "It would seem that the token wasn't linked to the admin invite."; 
         return res.status(404).render("main/adminSetCredentialError", {
             title: "Admin Set Credential Error", 
-            error: "Admin not found. Contact admin support for more help.",
+            error: "The token wasn't found due the admin account not being in the system from a failed invite.",
+            mssg: setCredentialErrorMssg,
         });  
     }
 
@@ -282,15 +300,24 @@ adminRoute.post("/activate/set-credentials", async (req, res) => {
     // TODO: This still needs to be unit tested. 
     if (admin.isActive)
     {
+        const setCredentialErrorMssg = `This admin account seems to already exist. 
+                                   Please refer to the <a href="/admin/forgot-username">forgot Username</a>, or
+                                   <a href="/admin/forgot-password">forgot password</a> links to recover this 
+                                   account if you forgot your login credentials.`;
         return res.status(404).render("main/adminSetCredentialError", {
             title: "Admin Set Credential Active", 
             error: "This account is already active", 
+            mssg: setCredentialErrorMssg,
         }); 
     }
 
+    // Test if the admin token has expired:
+    // TODO: This still needs to be unit tested.
     if (admin.tokenExpiresAt && admin.tokenExpiresAt < new Date())
     {
-        return res.status(400).render("adminActivateError", { error: "Activation link expired" }); 
+        return res.status(400).render("adminActivateError", { 
+            error: "Activation link expired" 
+        }); 
     }
 
     const hashedPassword = await bcrypt.hash(setPassword, 10); 

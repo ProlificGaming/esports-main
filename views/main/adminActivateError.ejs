@@ -4,9 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Activation Error</title>
+        <link rel="stylesheet" href="/styles/styles.css"> 
     </head>
 
     <body>
-        <h1>Admin Activation Error</h1>
+        <%- include("../utils/nav.ejs") %>
+
+        <section class="admin-activation-error-section">
+            <h1>Admin Activation Error</h1>
+            <p><%= error %></p>
+            <p>Return to the <a href="/admin">admin log in</a> or contact admin technical support for help.</p>
+        </section>
     </body>
 </html>
