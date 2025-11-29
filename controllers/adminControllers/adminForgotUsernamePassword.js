@@ -1,9 +1,10 @@
 const crypto = require("node:crypto"); 
-const { PrismaClient } = require("../../generated/prisma"); 
+// const { PrismaClient } = require("../../generated/prisma"); 
+const prisma = require("../../lib/prisma.js"); 
 const mailSys = require("../../utils/mailer"); 
 const bcrypt = require("bcryptjs");
 
-const prisma = new PrismaClient();  
+// const prisma = new PrismaClient();  
 
 // adminShowForgotUsernamePageGet(): Get route controller:
 const adminShowForgotUsernamePageGet = (req, res) => {

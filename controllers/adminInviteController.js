@@ -1,9 +1,10 @@
 const crypto = require("node:crypto");
-const { PrismaClient } = require("../generated/prisma");
+// const { PrismaClient } = require("../generated/prisma");
+const prisma = require("../lib/prisma.js"); 
 const mailSys = require("../utils/mailer.js");
 require('dotenv').config();
 
-const prisma = new PrismaClient(); 
+// const prisma = new PrismaClient(); 
 
 const inviteAdmin = async(req, res) => {
     const { inviteEmail, inviteRole } = req.body;

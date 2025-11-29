@@ -246,6 +246,16 @@ body{
     background-color: #fde68aa8;
 }
 
+.admin-log-in-error{
+    border: 1px solid red;
+    border-radius: 12px; 
+    padding: 5px; 
+}
+.admin-log-in-error > p{
+    color: #f3f4f6; 
+    font-size: 18px; 
+}
+
 /* Admin|Admin Activation */
 .admin-activation-section{
     display: flex;
@@ -439,6 +449,12 @@ body{
 .admin-set-credentials-error-section > p > a:hover{
     text-decoration: none;  
 }
+
+#password-strength { width: 100%; height: 8px; background: #ddd; margin-top: 5px; } 
+#strength-bar { height: 8px; width: 0%; transition: 0.2s; }
+.password-rules li { font-size: 14px; margin-top: 4px; }
+.password-rules li.valid { color: green; }
+.password-rules li.invalid { color: red; }
 
 /* Admin Set Credentials|Admin Activation Successs */
 .admin-activation-success-section{

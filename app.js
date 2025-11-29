@@ -6,7 +6,8 @@ const path = require('node:path');
 const session = require('express-session'); 
 const passport = require('passport'); 
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store'); 
-const { PrismaClient } = require("./generated/prisma");
+// const { PrismaClient } = require("./generated/prisma");
+const prisma = require("./lib/prisma.js");
 // const passportConfig = require("./configurations/passportConfig.js");
 const InitializePassport = require("./configurations/passportConfig.js");
 
@@ -18,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 8000; 
 
 // Acquire the prisma client to begin querying:
-const prisma = new PrismaClient(); 
+// const prisma = new PrismaClient(); 
 
 // Set EJS as the templating engine:
 app.set('view engine', 'ejs'); 

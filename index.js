@@ -1,6 +1,8 @@
-const { PrismaClient } = require("./generated/prisma"); 
+// const { PrismaClient } = require("./generated/prisma"); 
+const prisma = require("./lib/prisma.js"); 
 
-const prisma = new PrismaClient();
+
+// const prisma = new PrismaClient();
 
 /** |Notes|
  * Mandatory Query => Mandatory queries require this command to run the code: 
@@ -29,7 +31,7 @@ async function main() {
             email: "ibenge908@gmail.com"
         }
     })
-    console.log(email); // testing 
+    // console.log(email); // testing 
 }
 
 main()

@@ -36,13 +36,12 @@ development or prototyping.
 */
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 /* |Admin Model|
@@ -57,13 +56,20 @@ that expire after activation (or after a set time).
 -> activationToken: Unique token for sercure one-time link.
 -> tokenExpiresAt: Optional - you can expire invites after 24 hours. 
 -> isActive: Prevents login until the admin activates thier account. 
+
+=> Recommended lockout rules: 
+This will control the flow of logins for administration prevent brute force login:
+Max attempts => 5
+Lockout period => 15 minutes
+Reset attempts on success => Yes
+Lockout time extends only once => Yes
 */
 // Admin Model: 
 model Admin {
   id                    String        @id @default(cuid())
   email                 String?       // 1st New Entry 
   username              String?       @unique
-  password              String?               // hashed password (bcrypt)
+  password              String?       // hashed password (bcrypt)
   role                  String        @default("admin") // optional: extend for roles later
   isActive              Boolean       @default(false) // 1st New Entry
   activationToken       String?       @unique // 1st New Entry - 2nd New Entry
@@ -72,6 +78,10 @@ model Admin {
   // Password Reset Fields:
   passwordResetToken    String?
   passwordResetExpires  DateTime?
+
+  // Account Lockout After Failed Attempts Fields:
+  failedLoginAttempts   Int           @default(0)
+  lockoutUntil          DateTime? 
   
   createdAt             DateTime      @default(now())
   updatedAt             DateTime?     @updatedAt

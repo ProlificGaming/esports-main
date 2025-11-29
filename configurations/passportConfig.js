@@ -6,11 +6,11 @@
 // Common JS Modules:
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-const { PrismaClient } = require("../generated/prisma"); 
-
+// const { PrismaClient } = require("../generated/prisma"); 
+const prisma = require("../lib/prisma.js"); 
 
 // Grab generated database from the generated folder. 
-const prisma = new PrismaClient(); 
+// const prisma = new PrismaClient(); 
 
 function InitializePassport(passport){
     passport.use(

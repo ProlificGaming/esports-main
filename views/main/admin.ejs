@@ -16,6 +16,17 @@
         <section class="admin-log-in-section">
             <h2>Administration Login</h2>
 
+            <div class="admin-log-in-error">
+                <% if (lockoutInitiated){ %> 
+                    <p><%= mssg %></p>
+                <% } %> 
+
+                <% if (failedAttempt){ %>
+                    <p><%= mssg %></p>
+                <% } %> 
+            </div>
+
+
             <form action="/admin" method="POST">
                 <div>
                     <label for="adminUsername">Username</label>

@@ -1,14 +1,15 @@
 const express = require('express'); 
 const passport = require('passport'); 
-const { PrismaClient } = require('../generated/prisma');
+const prisma = require("../lib/prisma.js");
 const bcrypt = require("bcryptjs"); 
 
 const adminInvites = require("../controllers/adminInviteController.js");
 const adminForgotUsernamePassword = require("../controllers/adminControllers/adminForgotUsernamePassword.js"); 
+const adminControllers = require("../controllers/adminControllers/adminLoginController.js"); 
 const { validateUsername, validatePassword } = require("../utils/validators.js"); 
 
 const adminRoute = express();
-const prisma = new PrismaClient(); 
+
 
 // AdminDashboardSidebarLinks: All the admin sidebar paths: 
 let adminDashboardSidebarLinks = [
@@ -24,6 +25,10 @@ adminRoute.get('/', (req, res) => {
     {
         res.status(200).render("main/admin", {
             user: req.user, // For: logInWindow.ejs template.
+            title: "Prolific Gaming",
+            lockoutInitiated: false,
+            failedAttempt: false,
+            mssg: null,
         });
     }
     else
@@ -36,12 +41,13 @@ adminRoute.get('/', (req, res) => {
 });
 
 // Admin post route:
-adminRoute.post('/',
-    passport.authenticate("local", {
-        successRedirect: "/admin/dashboard",
-        failureRedirect: "/",
-    })
-);
+// adminRoute.post('/',
+//     passport.authenticate("local", {
+//         successRedirect: "/admin/dashboard",
+//         failureRedirect: "/",
+//     })
+// );
+adminRoute.post('/', adminControllers.adminLoginController); 
 
 // Admin dashboard get route: 
 adminRoute.get('/dashboard', EnsureAdminAuthenticated, (req, res) => {
