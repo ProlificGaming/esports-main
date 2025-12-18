@@ -7,23 +7,22 @@
         <link rel="stylesheet" href="/styles/adminStyles.css">
     </head>
 
-    <body>
+    <body class="theme-<%=theme %>">
         <%- include("../utils/adminNav.ejs", { logInColor: '#65a30d' }) %>
         
-        <main id="admin-invite-main">
+        <main id="admin-invite-main" class="admin-dashboard-setup">
             <section class="profile-info">
-                <section class="profile-info">
-                    <h2>Welcome <%= username %></h2> 
-                    <p>Role: <%= role %></p>
-                </section>
+                <h2>Welcome <%= username %></h2> 
+                <p>Role: <%= role %></p>
             </section>
 
             <%- include("../utils/adminSidebar.ejs")  %>
 
             <section class="admin-invite-section">
-                <section class="admin-invite-section-1">
-                    <h2>Admin Invite</h2>
+                <h2>Admin Invite</h2>
 
+                <section class="admin-invite-section-1">
+                    <h3>Invite station</h3>
                     <form action="/admin/dashboard/invite" method="POST">
                         <div>
                             <label for="inviteRole">Invite Type</label>

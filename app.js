@@ -13,6 +13,7 @@ const InitializePassport = require("./configurations/passportConfig.js");
 
 // Default routes: 
 const adminRoute = require('./routes/admin.js');
+
 require('dotenv').config();
 
 const app = express();
@@ -60,6 +61,12 @@ console.log(Object.keys(prisma));
  * -> Integration inside your "Activate Admin Invite" endpoint
  * -> Error messages for frontend
  * -> Optional: password strength meter (if you want it)
+ * 
+ * ===> Express-Rate-Limiting (Per-user lockout and per-IP limiting): 
+ * -> Correct username + wrong password (User DB lockout)
+ * -> Wrong Username + wrong password (Use rate limit, no DB lockout)
+ * -> Already locked users (block before Passport)
+ * -> Clean integration with your existing adminRoute + passport.authenticate("local")
  */
 
 /**

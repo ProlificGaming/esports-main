@@ -1,95 +1,100 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-/* |Prisma Client Notes|
-=> Understanding 'prisma generate' & 'prisma migrate dev': 
-When you run 'prisma generate', you are actually creating code (TypeScript types, methods, queries, ...)
-that is tailored to your Prisma schema file or files in the 'prisma' directory. This means, that whenever you make
-changes to your Prisma schema file, you also need to update the Prisma Client. You can do this by running the 
-'prisma generate' command.
-
-Whenever you update your Prisma schema, you will have to update your database schema using either 
-'prisma migrate dev' or 'prisma db push'. This will keep your database schema in sync with your
-Prisma schema. These commands will also run 'prisma generate' under the hood to re-generate your 
-Prisma Client.
-
-These commands serve different purposes in managing your database schema with Prisma. Here's a
-breakdown of when and why to use each:
------> npx prisma migrate dev
--> Purpose: This command generates and applies a new migration based on your Prisma schema changes. 
-It creates migration files that keep a history of changes.
--> Use Case: Use this when you want to maintain a record of database changes, which is essential for
-production environments or when working in teams. It allows for version control of your database schema. 
--> Benefits: This command also includes checks for applying migrations in a controlled manner, ensuring 
-data integrity.
-
------> npx prisma db push
--> Purpose: This command is used to push your current Prisma schema to the database directly. It applies any
-changes you've made to your schema without creating migration files.
--> Use Case: It's particularly useful during the development phase when you want to quickly sync your database 
-schema with your Prisma schema without worrying about migration history.
--> Caution: It can overwrite data if your schema changes affect existing tables or columns, so its best for early-stage
-development or prototyping. 
-*/
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-/* |Admin Model|
--> email: The key identifier (the invite email)
--> username: username & password: Set later by the admin after activation.
--> isActive: Prevents login until the admin has completed account setup.
--> activationToken: Optional - Use this if you want to send a secure invite link instead of letting them 
-type their email directly.
-
-=> New fields added on 11-12-2025: You'll be able to invite new admins via email links
-that expire after activation (or after a set time). 
--> activationToken: Unique token for sercure one-time link.
--> tokenExpiresAt: Optional - you can expire invites after 24 hours. 
--> isActive: Prevents login until the admin activates thier account. 
-
-=> Recommended lockout rules: 
-This will control the flow of logins for administration prevent brute force login:
-Max attempts => 5
-Lockout period => 15 minutes
-Reset attempts on success => Yes
-Lockout time extends only once => Yes
-*/
-// Admin Model: 
+/// |Admin Model|
+/// -> email: The key identifier (the invite email)
+/// -> username: username & password: Set later by the admin after activation.
+/// -> isActive: Prevents login until the admin has completed account setup.
+/// -> activationToken: Optional - Use this if you want to send a secure invite link instead of letting them 
+/// type their email directly.
+///
+/// => New fields added on 11-12-2025: You'll be able to invite new admins via email links
+/// that expire after activation (or after a set time). 
+/// -> activationToken: Unique token for sercure one-time link.
+/// -> tokenExpiresAt: Optional - you can expire invites after 24 hours. 
+/// -> isActive: Prevents login until the admin activates thier account. 
+///
+/// => Recommended lockout rules: 
+/// This will control the flow of logins for administration prevent brute force login:
+/// Max attempts => 5
+/// Lockout period => 15 minutes
+/// Reset attempts on success => Yes
+/// Lockout time extends only once => Yes
 model Admin {
-  id                    String        @id @default(cuid())
-  email                 String?       // 1st New Entry 
-  username              String?       @unique
-  password              String?       // hashed password (bcrypt)
-  role                  String        @default("admin") // optional: extend for roles later
-  isActive              Boolean       @default(false) // 1st New Entry
-  activationToken       String?       @unique // 1st New Entry - 2nd New Entry
-  tokenExpiresAt        DateTime?     // 2nds New Entry. 
+  id                   String    @id @default(cuid())
+  username             String?   @unique
+  password             String?
 
-  // Password Reset Fields:
-  passwordResetToken    String?
-  passwordResetExpires  DateTime?
+  role                 String    @default("admin")
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime? @updatedAt
+  activationToken      String?   @unique
 
-  // Account Lockout After Failed Attempts Fields:
-  failedLoginAttempts   Int           @default(0)
-  lockoutUntil          DateTime? 
-  
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime?     @updatedAt
+  email                String?
+  isActive             Boolean   @default(false)
+  tokenExpiresAt       DateTime?
+
+  // Password reset token fields for forgotten password. 
+  passwordResetExpires DateTime?
+  passwordResetToken   String?
+
+  // Admin lockout fields for failed log in attempts:
+  failedLoginAttempts  Int       @default(0)
+  attemptsAfterLockout Int       @default(0)
+  lockoutUntil         DateTime?
+
+  // Admin Appearance (Page Themes):
+  theme                String    @default("orange-creme") // <--- ADD THIS
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// |Security Log|
+model SecurityLog {
+  id                  String      @id @default(cuid())
+  ipAddress           String 
+  username            String?
+  success             Boolean
+  reason              String
+  userAgent           String?
+  createdAt           DateTime    @default(now())
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// |Tournament Log|
+model TournamentLog{
+  id                  String        @id @default(cuid())
+  name                String?       @unique
+  type                String?
+  game                String?
+  startDate           DateTime? 
+  time                String? 
+  playerCount         Int           @default(0)
+  description         String? 
+
+  bannerUrl           String?
+  bannerPublicId      String?
+
+  status              String        @default("DRAFT") // DRAFT | PUBLI 
+
+  createdById         String?
+  createdAt           DateTime      @default(now())
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// |Session|
 model Session {
-  id String @id @default(cuid())
-  sid String @unique
-  data String
+  id        String   @id @default(cuid())
+  sid       String   @unique
+  data      String
   expiresAt DateTime
 }

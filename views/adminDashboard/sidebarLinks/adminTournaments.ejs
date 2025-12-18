@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Set Tournaments</title>
+        <link rel="stylesheet" href="/styles/adminStyles.css">
+        <script src="/windows/adminAddImageToTournamentData.js" defer></script>
+    </head>
+
+    <body class="theme-<%= theme %>">
+        <%- include('../../utils/adminNav.ejs', { logInColor: '#65a30d' }) %>
+
+        <main id="main-admin-dashboard-panel" class="admin-dashboard-setup">
+            <section class="profile-info">
+                <h2>Welcome: <%= username %></h2>
+                <p>Role: <%= role %></p>
+            </section>
+
+            <%- include('../../utils/adminSidebar.ejs') %>
+
+            <section class="admin-control-panel-section">
+                <h2>Add Tournaments/Events</h2>
+
+                <!-- Section 1 -->
+                <section class="admin-control-panel-section-1">
+                    <h3>Add new tournaments & events</h3>
+
+                    <form action="/admin/dashboard/tournaments" method="POST" >
+                        <div>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter tournament/event name." required />
+                        </div>
+
+                        <div>
+                            <label for="type">Type</label>
+                            <input type="text" id="type" name="type" placeholder="tournament, event, free-for-all, socials, etc.">
+                        </div>
+
+                        <div>
+                            <label for="game">Game</label>
+                            <select name="game" id="game">
+                                <option value="call-of-duty-warzone">Warzone</option>
+                                <option value="apex-legends">Apex Legends</option>
+                                <option value="Marvel Rivals">Marvel Rivals</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required />
+                        </div>
+
+                        <div>
+                            <label for="time">Time</label>
+                            <input type="time" id="time" name="time" />
+                        </div>
+
+                        <div>
+                            <label for="playerCount">Number of players</label>
+                            <input type="number" id="playerCount" name="playerCount" required />
+                        </div>
+
+                        <div>
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" cols="70" rows="12" placeholder="Enter the description here"></textarea>
+                        </div>
+
+                        <div>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Section 2 -->
+                <section class="admin-control-panel-section-2">
+                    <h3>Add images/banners to the tournament/event logs</h3>
+                    <% if (tournaments) { %> 
+                        <fieldset>
+                            <legend>Click any section to add an image/banner</legend>
+                            <% tournaments.forEach((tournament) =>{ %> 
+
+                                <% if (tournament.bannerPublicId === null) { %>  
+                                    <form id="admin-assign-tournament-image" action="/admin/dashboard/tournaments/<%= tournament.name %>" method="POST" enctype="multipart/form-data">
+                                        <div>
+                                            <label><%= tournament.name %></label>
+
+                                            <div>
+                                                <p><b>Type:</b> <%= tournament.type %></p>
+                                                <p><b>Game:</b> <%= tournament.game %></p>
+                                                <p><b>Start Date:</b> <%= tournament.startDate %></p>
+                                                <p><b>Time:</b> <%= tournament.time %></p>
+                                                <p><b>Player Count:</b> <%= tournament.playerCount %></p>
+                                                <p><b>Description:</b> <%= tournament.description %></p>
+                                            </div>
+
+                                            <!-- "Add image/data window" -->
+                                            <div id="<%= tournament.name %>" class="admin-add-image-tournament-window">
+                                                <div aria-label="close-button-container">
+                                                    <svg aria-label="close-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                        <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                                                    </svg>
+                                                </div>
+                                                <input type="file" id="<%= tournament.name %>" name="banner" accept="image/*" required />
+                                                <button type="submit">Submit Image</button>
+                                            </div>
+
+                                            <!-- The tournament "add image/data button" (Will open the add image window) -->
+                                            <div>
+                                                <svg aria-label="plus-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                                </svg>
+                                                <button type="button">Open</button>
+                                            </div>
+
+                                            <div>
+                                                <svg aria-label="no-image-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M21 17.2L6.8 3H19C20.1 3 21 3.9 21 5V17.2M20.7 22L19.7 21H5C3.9 21 3 20.1 3 19V4.3L2 3.3L3.3 2L22 20.7L20.7 22M16.8 18L12.9 14.1L11 16.5L8.5 13.5L5 18H16.8Z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </form>
+                                <% } else { %>
+                                    <div id="admin-update-delete-tournament-image">
+                                        <!-- Admin Tournament Name -->
+                                        <label><%= tournament.name %></label>
+
+                                        <!-- Admin Tournament Details -->
+                                        <div>
+                                            <p><b>Type:</b> <%= tournament.type %></p>
+                                            <p><b>Game:</b> <%= tournament.game %></p>
+                                            <p><b>Start Date:</b> <%= tournament.startDate %></p>
+                                            <p><b>Time:</b> <%= tournament.time %></p>
+                                            <p><b>Player Count:</b> <%= tournament.playerCount %></p>
+                                            <p><b>Description:</b> <%= tournament.description %></p>
+                                        </div>
+
+                                        <!-- Admin Update Tournament Form Window -->
+                                        <div>
+                                            <div aria-label="close-button-container">
+                                                <svg aria-label="close-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                                                </svg>
+                                            </div>
+
+                                            <form id="admin-update-tournament-image" action="/admin/dashboard/tournaments/<%= tournament.name %>" method="POST" enctype="multipart/form-data">
+                                                <input type="file" id="<%= tournament.name %>" name="banner" accept="image/*" required />
+                                                <button type="submit">Update Image</button>
+                                            </form>
+                                        </div>
+                                        <div>
+                                            <svg aria-label="update-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.62,5.81C9.13,2.34 14.76,2.34 18.27,5.81L21,3V10.12M12.5,8V12.25L16,14.33L15.28,15.54L11,13V8H12.5Z"/>
+                                            </svg>
+                                            <button type="button">Update Image</button>
+                                        </div>
+
+                                        <!-- Admin Delete Tournament Form -->
+                                        <div>
+                                            <form id="admin-delete-tournament-image" action="/admin/dashboard/tournaments/<%= tournament.name %>/delete" method="POST">
+                                                <svg aria-label="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                                                </svg>
+                                                <button type="submit">Delete Image</button>
+                                            </form>
+                                        </div>
+
+                                        <div class="admin-tournament-image-container">
+                                            <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %>" />
+                                        </div>
+                                    </div>
+                                <% } %>
+
+                            <% }); %> 
+                        </fieldset>
+                    <% } else { %>
+                        <p>There are currently no tournaments/events in the queue.</p>
+                    <% } %>
+                </section>
+
+                <!-- Section 3 -->
+                <section class="admin-control-panel-section-3">
+                    <h3>Make tournaments/events public</h3>
+
+                    <% if (tournaments) { %>
+                        <fieldset>
+                            <legend>Select from the queue which tournaments to make public</legend>
+
+                            <form id="admin-assign-tournaments" action="/" method="POST">
+                                <% tournaments.forEach((tournament) => { %>
+                                    <label>
+                                        <div>
+                                            <input type="checkbox" id="<%= tournament.name %>" name=" <%= tournament.name %>">
+                                            <%= tournament.name %>
+                                        </div>
+
+                                        <div>
+                                            <p><b>Type:</b> <%= tournament.type %></p>
+                                            <p><b>Game:</b> <%= tournament.game %></p>
+                                            <p><b>Start Date:</b> <%= tournament.startDate %></p>
+                                            <p><b>Time:</b> <%= tournament.time %> (Pacific Standard Time (PST) - America/Los Angeles)</p>
+                                            <p><b>Player Count:</b> <%= tournament.playerCount %></p>
+                                            <p><b>Description:</b> <%= tournament.description %></p>
+                                        </div>
+                                    </label>
+                                <% }) %> 
+                            </form>
+                        </fieldset>
+                    <% } else { %>
+                        <p>There are currently no tournaments/events in the queue.</p>
+                    <% } %>
+                </section>
+
+
+            </section>
+
+
+
+        </main>
+
+    </body>
+</html>

@@ -6,19 +6,24 @@ const bcrypt = require("bcryptjs");
 const adminInvites = require("../controllers/adminInviteController.js");
 const adminForgotUsernamePassword = require("../controllers/adminControllers/adminForgotUsernamePassword.js"); 
 const adminControllers = require("../controllers/adminControllers/adminLoginController.js"); 
+const adminAddTournamentsEventsPost = require("../controllers/adminControllers/adminAddTournamentsEvent.js");
+
+const injectTheme = require("../middlewares/themeInjector.js"); 
+const adminDashboardSidebarLinksMiddleWare = require("../middlewares/adminDashboardSidebarLinks.js"); 
+const upload = require("../middlewares/uploadTournamentBanner.js"); 
+
+const { adminLoginLimiter, adminLoginSlowdown } = require("../configurations/rateLimiters.js"); 
 const { validateUsername, validatePassword } = require("../utils/validators.js"); 
 
 const adminRoute = express();
 
+// Middleware content: 
+adminRoute.use(injectTheme); 
+adminRoute.use(adminDashboardSidebarLinksMiddleWare);  
 
-// AdminDashboardSidebarLinks: All the admin sidebar paths: 
-let adminDashboardSidebarLinks = [
-    {name: "/dashboard", current: false},
-    {name: "/dashboard/appearance", current: false},
-    {name: "/dashboard/invite", current: false}, 
-    {name: "/dashboard/tournaments", current: false}, 
-];
-
+/**
+ * ------------------------------------- Admin Username/Password Authentication Section -------------------------------------
+ */
 // Admin login get route:
 adminRoute.get('/', (req, res) => {
     if (req.isUnauthenticated())
@@ -47,25 +52,25 @@ adminRoute.get('/', (req, res) => {
 //         failureRedirect: "/",
 //     })
 // );
-adminRoute.post('/', adminControllers.adminLoginController); 
+
+// TODO: Remember to add the express-rate-limiter function to
+// lockout IP-addresses to try brute force the admin. This will
+// help prevent bots from hacking the administration portal. 
+// Express-rate-limiter functions: adminLoginLimiter() and adminLoginSlowdown()
+/** ORDER MATTERS:
+ * 1) slowdown (progressive delay)
+ * 2) limiter (caps total attempts)
+ * 3) login controller (DB lockout + passport)
+ */
+adminRoute.post('/', adminControllers.adminLoginController); // New admin login pattern with rate-limiters
 
 // Admin dashboard get route: 
 adminRoute.get('/dashboard', EnsureAdminAuthenticated, (req, res) => {
     console.log(req.user); // Testing     
-    adminDashboardSidebarLinks.forEach((link) => {
-        if (link.name === req.path)
-        {
-            link.current = true;
-        }
-        else
-        {
-            link.current = false; 
-        }
-    })
+
     res.status(200).render("main/adminDashboard", {
         username: req.user.username,
         role: req.user.role,
-        sidebarLinks: adminDashboardSidebarLinks,
     }); 
 }); 
 
@@ -79,49 +84,94 @@ function EnsureAdminAuthenticated(req, res, next){
     res.redirect('/admin');  
 }
 
-// Admin invite get route:
-adminRoute.get("/dashboard/invite", (req, res) => {
-    adminDashboardSidebarLinks.forEach((link) => {
-        if (link.name === req.path)
+/** 
+ * ------------------------------------- Admin Dashboard Sidebar Links Section -------------------------------------
+ */
+// AdminCurrentAppearanceThemes: The current theme for the admin dashboard:
+let adminCurrentAppearanceThemes = [
+    {name: "dark", current: false, buttonHoverColor: '#f12711' },
+    {name: "white", current: false},
+    {name: "orange-creme", current: false},
+    {name: "horizon", current: false}, 
+]; 
+
+// Admin appearance get route: (sidebar link get route):
+adminRoute.get("/dashboard/appearance", (req, res) => {
+    adminCurrentAppearanceThemes.forEach((theme) => {
+        if (theme.name === req.user.theme)
         {
-            link.current = true; 
+            theme.current = true;
         }
         else
         {
-            link.current = false; 
+            theme.current = false;
         }
     });
 
+    res.status(200).render("adminDashboard/sidebarLinks/adminAppearance", {
+        username: req.user.username, 
+        role: req.user.role,
+        currentTheme: adminCurrentAppearanceThemes, 
+        hoverCover: adminCurrentAppearanceThemes.forEach(theme => {if (theme.current) return theme.buttonHoverColor }),
+    }); 
+}); 
+
+// Admin appearance post route: (Sidebar link post route): 
+adminRoute.post("/dashboard/appearance", async(req, res) => {
+    const { theme } = req.body; 
+
+    if (!["orange-creme", "dark", "white", "horizon"].includes(theme)){
+        return res.status(400).render('adminErrors/designError.ejs');
+    }
+
+    await prisma.admin.update({
+        where: { id: req.user.id },
+        data:{
+            theme: theme,
+        }
+    }); 
+
+    return res.redirect("/dashboard/appearance"); 
+});
+
+// Admin invite get route: (Sidebar link get route): 
+adminRoute.get("/dashboard/invite", (req, res) => {
     res.status(200).render("main/adminInvite", {
         inviteSent: null,
         username: req.user.username,
         role: req.user.role,
-        sidebarLinks: adminDashboardSidebarLinks, 
     });
 }); 
 
-// Admin invite post route:
+// Admin invite post route: (Sidebar link post route): 
 adminRoute.post("/dashboard/invite", adminInvites.inviteAdmin);
 
-// Admin: Set tournaments get route: 
-adminRoute.get("/dashboard/tournaments", (req, res) => {
-    adminDashboardSidebarLinks.forEach((link) => {
-        if (link.name === req.path)
-        {
-            link.current = true;
-        }
-        else
-        {
-            link.current = false; 
-        }
-    });
+// Admin: Set tournaments get route: (Sidebar link get route):
+adminRoute.get("/dashboard/tournaments", async (req, res) => {
+    const tournaments = await prisma.tournamentLog.findMany();
 
-    res.render("adminUtils/adminTournaments", {
+    res.render("adminDashboard/sidebarLinks/adminTournaments", {
         username: req.user.username,
         role: req.user.role,
-        sidebarLinks: adminDashboardSidebarLinks,
+        tournaments: tournaments, 
     }); 
 });
+
+adminRoute.post("/dashboard/tournaments", adminAddTournamentsEventsPost.adminAddTournamentsEventsPost); 
+adminRoute.post(
+    "/dashboard/tournaments/:tournamentId", 
+    upload.single("banner"), 
+    adminAddTournamentsEventsPost.adminAddTournamentImagesPost
+);
+adminRoute.post(
+    "/dashboard/tournaments/:tournamentId/delete",
+    adminAddTournamentsEventsPost.adminDeleteTournamentImagesPost
+);
+
+/**
+ * ------------------------------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------------------------------
+ */
 
 // admin logout get route: 
 adminRoute.get('/logout', (req, res, next) => {
@@ -382,6 +432,5 @@ adminRoute.post("/reset-password/:token", adminForgotUsernamePassword.adminReset
 // adminRoute.get("/reset-password", (req, res) => res.render("adminUtils/adminResetPasswordSuccess")); 
 
 // adminRoute.get("/reset-password", (req, res) => res.render('adminUtils/adminResetPasswordExpired')); 
-
 
 module.exports = adminRoute; 

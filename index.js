@@ -26,12 +26,19 @@ async function main() {
     //     }
     // });
 
-    const email = await prisma.admin.findMany({
-        where: {
-            email: "ibenge908@gmail.com"
-        }
-    })
+    // const email = await prisma.admin.findMany({
+    //     where: {
+    //         email: "ibenge908@gmail.com"
+    //     }
+    // });
     // console.log(email); // testing 
+
+    const tournamentLog = await prisma.tournamentLog.findUnique({
+        where: {
+            name: "Model",
+        }
+    }); 
+    console.log(tournamentLog); // Testing 
 }
 
 main()

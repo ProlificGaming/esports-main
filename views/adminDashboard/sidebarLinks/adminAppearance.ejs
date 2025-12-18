@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Appearance</title>
+        <link rel="stylesheet" href="/styles/adminStyles.css">
+        <script src="/design/adminAppearance.js" defer></script>
+    </head>
+
+    <body class="theme-<%= theme %>">
+        <%- include('../../utils/adminNav.ejs', { logInColor: '#65a30d' }) %> 
+
+        <main id="admin-appearance-main" class="admin-dashboard-setup">
+            <section class="profile-info">
+                <h2>Welcome <%= username %></h2> 
+                <p>Role: <%= role %></p>
+            </section>
+
+            <%- include('../../utils/adminSidebar.ejs') %> 
+
+            <section class="admin-appearance-section">
+                <h2>Appearance </h2>
+
+                <section class="admin-appearance-section-1">
+                    <h3>Themes</h3>
+                    <div>
+                        <form id="themeForm">
+                            <button style="background-color: <%= currentTheme[0].current ? '#f1271133' : 'none' %>" data-theme="dark">Dark</button>
+                            <button style="background-color: <%= currentTheme[1].current ? '#f1271133' : 'none' %>" data-theme="white">White</button>
+                            <button style="background-color: <%= currentTheme[2].current ? '#f1271133' : 'none' %>" data-theme="orange-creme">Orange Creme</button>
+                            <button style="background-color: <%= currentTheme[3].current ? '#f1271133' : 'none' %>" data-theme="horizon">Horizon</button>
+                        </form>
+                    </div>
+                </section>
+            </section>
+
+        </main>
+    </body>
+</html>

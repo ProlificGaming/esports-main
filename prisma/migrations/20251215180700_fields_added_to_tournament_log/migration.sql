@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "TournamentLog" ADD COLUMN     "bannerPublicId" TEXT,
+ADD COLUMN     "bannerUrl" TEXT,
+ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "createdById" TEXT,
+ADD COLUMN     "status" TEXT NOT NULL DEFAULT 'DRAFT';

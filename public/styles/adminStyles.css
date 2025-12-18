@@ -1,8 +1,14 @@
+/* :root - Global scope root selector. */
+:root {
+    --primary-bg-color-1: #f12711;
+    --primary-bg-color-2: #f5af19;
+}
+
 /* body - The entire body for the application. */
 body{
     padding: 0;
     margin: 0;
-    background: linear-gradient(to right, #f12711, #f5af19);
+    /* background: linear-gradient(to right, var(--primary-bg-color-1) , var(--primary-bg-color-2)); */
 } 
 
 /* * - All the elements in the application. */
@@ -71,6 +77,30 @@ body{
 
 /*************************************************************************************************************************************/
 /*************************************************************************************************************************************/
+/* |Admin Dashboard Setup| */
+.admin-dashboard-setup{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: auto;
+    grid-template-areas:
+        "profileInfo profileInfo profileInfo profileInfo"
+        "sidebar dashboardContent dashboardContent dashboardContent"; 
+    gap: 10px;
+
+    padding: 30px 200px 30px 200px;
+}
+.admin-dashboard-setup > section:nth-child(1){
+    grid-area: profileInfo;
+}
+.admin-dashboard-setup > section:nth-child(2){
+    grid-area: sidebar;
+}
+.admin-dashboard-setup > section:nth-child(3){
+    grid-area: dashboardContent; 
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
 /* |Admin Sidebar| */
 .admin-sidebar{
     display: flex;
@@ -99,7 +129,7 @@ body{
     align-items: center;
     gap: 10px;
 
-    border: 1px solid black;
+    border: 1px solid var(--sidebar-border-color); 
     border-radius: 10px; 
     text-decoration: none; 
     color:#f3f4f6;
@@ -109,7 +139,7 @@ body{
     margin-bottom: 10px; 
 }
 .admin-sidebar > section > a:hover{
-    background-color: #f5af1970;
+    background-color: var(--sidebar-button-bg-color);  
 }
 .admin-sidebar > section > a > span > svg{
     width: 25px; 
@@ -149,50 +179,135 @@ body{
 
 /*************************************************************************************************************************************/
 /*************************************************************************************************************************************/
+/* |Admin Appearance Main| */
+#admin-appearance-main{
+    border: 1px solid blue; 
+}
+.admin-appearance-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+
+    border: 1px solid yellow; 
+}
+.admin-appearance-section > h2{
+    color: #f3f4f6;
+    font-size: 25px; 
+    letter-spacing: 1px;
+}
+.admin-appearance-section-1{
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+
+    background-color: var(--section-1-background-color); 
+    border: 1px solid var(--section-1-border-color);
+    border-radius: 12px; 
+    width: 800px;
+    padding: 20px; 
+    color: #f3f4f6; 
+    backdrop-filter: blur(6px); 
+}
+.admin-appearance-section-1 > h3{
+    margin-left: 5px; 
+}
+.admin-appearance-section-1 > div > form{
+    display: flex;
+    gap: 15px; 
+}
+.admin-appearance-section-1 > div > form > button{
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px;
+    padding: 5px 25px;
+    background-color:#f12711;
+    color: #f3f4f6;
+    font-size: 15px;
+    cursor: pointer; 
+}
+.admin-appearance-section-1 > div > form > button:hover{
+    background-color:#f1271133;
+}
+
+.theme-orange-creme{
+    background: linear-gradient(to right, #f12711, #f5af19);
+}
+
+.theme-dark{
+    background: linear-gradient(to right, #000000, #434343);
+
+    /* Admin Control Panel Section */
+    --profile-border-color: rgba(255, 255, 255, 0.1);
+    --admin-control-panel-section-button-color: #f12711; 
+    --admin-control-panel-section-button-color-hover: #f1271156;
+    --section-1-border-color: rgba(255, 255, 255, 0.1);
+    --section-1-background-color: rgba(255, 255, 255, 0.05);
+
+    /* Admin Sidebar */ 
+    --sidebar-border-color: rgba(255, 255, 255, 0.1); 
+    --sidebar-button-bg-color: #f12711; 
+
+    /* Miscellaneous */
+    --border-color: #f12711; 
+    --border-color-2: rgba(255, 255, 255, 0.1);
+    --hover-color-1: white;
+    --hover-color-2: #f12711a4;
+    --bg-color: rgba(255, 255, 255, 0.05);
+    --add-image-window-icon-color: white;  
+    --add-image-window-bg-color: rgba(255, 255, 255, 0.849);
+    --add-image-window-width: 0px;
+    --add-image-window-height: 0px;
+    --update-image-window-width: 0px;
+    --update-image-window-height: 0px; 
+    --admin-update-delete-tournament-icon-color: white;
+}
+
+.theme-white{
+    background-color: #f8fafc;
+}
+.theme-horizon{
+    background: linear-gradient(to right, #003973, #e5e5be); 
+}
+
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
 /* |Admin Invite Main| */
 #admin-invite-main{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas:
-        "profileInfo profileInfo profileInfo profileInfo"
-        "sideBar inviteContent inviteContent inviteContent";
-    gap: 10px;
-    
-    padding: 30px 200px 30px 200px; 
-}
-#admin-invite-main > section:nth-child(1){ /* Profile Info */
-    grid-area: profileInfo; 
-}
-#admin-invite-main > section:nth-child(2){ /* Side Bar */
-    grid-area: sideBar; 
-}
-#admin-invite-main > section:nth-child(3){ /* Invite Content */
-    grid-area: inviteContent;
+    border: 1px solid purple;
 }
 
 /* |Admin Invite Main|Admin Invite Section */
 .admin-invite-section{
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px; 
+
     border: 1px solid blue; 
+}
+.admin-invite-section > h2{
+    color: #f3f4f6; 
+    font-size: 25px;
+    letter-spacing: 1px;
 }
 
 /* |Admin Invite Section|Admin Invite Section 1| */
 .admin-invite-section-1{ 
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    gap: 20px;
+    gap: 10px;
 
-    /* border: 1px solid black; */
-    /* background-color:rgba(239, 68, 68, 0.1); */
-
-    background-color:rgba(241, 39, 17, 0.1);
-    border: 1px solid #ef4444;
+    background-color: var(--section-1-background-color);  
+    border: 1px solid var(--section-1-border-color);
     border-radius: 12px; 
     width: 800px;
-    margin: 0px auto;
-    padding: 10px;
+    padding: 20px;
     color: #f3f4f6;
+    backdrop-filter: blur(6px);
+}
+.admin-invite-section-1 > h3{
+    margin-left: 5px;
 }
 .admin-invite-section-1 > form{
     display: flex;
@@ -201,7 +316,7 @@ body{
 
     /* border: 1px solid black; */
     font-size: 18px; 
-}
+} 
 .admin-invite-section-1 > h2{
     font-size: 30px;
     letter-spacing: 2px; 
@@ -214,14 +329,14 @@ body{
 }
 .admin-invite-section-1 > form > div > select{
     width: 200px;
-    border: 1px solid #f12711;
+    border: 1px solid var(--section-1-border-color); 
     border-radius: 12px; 
     padding: 5px 20px; 
     font-size: 15px;
 }
 .admin-invite-section-1 > form > div > input{
     width: 300px;
-    border: 1px solid #f12711; 
+    border: 1px solid var(--section-1-border-color); 
     border-radius: 12px; 
     padding: 5px 20px;
     font-size: 15px; 
@@ -242,7 +357,451 @@ body{
 
 /*************************************************************************************************************************************/
 /*************************************************************************************************************************************/
+/* |Main Admin Dashboard Panel (This is really the |Tournament Section|)| */
+#main-admin-dashboard-panel{
+    border: 1px solid blue;
+}
+
+.admin-control-panel-section{ /* Admin Control Panel Section */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px; 
+
+    border: 1px solid red;
+}
+.admin-control-panel-section > h2{ /* Section Header Title: Add Tournaments/Events */
+    font-size: 25px;
+    color: #f3f4f6; 
+    letter-spacing: 1px; 
+}
+
+
+.admin-control-panel-section-1{ /* Admin Control Panel Section|Section 1 */
+    border: 1px solid var(--section-1-border-color); 
+    background-color: var(--section-1-background-color); 
+    border-radius: 12px; 
+    width: 800px;
+    padding: 20px; 
+    backdrop-filter: blur(6px);
+}
+.admin-control-panel-section-1 > form{ /* Section 1|Add New Tournaments & Events Form */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+.admin-control-panel-section-1 > h3{ /* Section 1|Section 1 Header Title: Add new tournaments & events */
+    color: #f3f4f6; 
+    margin-bottom: 10px; 
+}
+.admin-control-panel-section-1 > form > div{ 
+    /* border: 1px solid red;  */
+}
+.admin-control-panel-section-1 > form > div > label{ /* Section 1|Control Panel Labels */
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    color: #f3f4f6; 
+    font-size: 17px; 
+}
+.admin-control-panel-section-1 > form > div > select{ /* Section 1|Game Select  */ 
+    width: 200px;
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px; 
+    padding: 5px;
+    font-size: 16px; 
+}
+.admin-control-panel-section-1 > form > div > input{/* Section 1|All Input Fields */
+    width: 350px;
+    padding: 5px;
+    border: 1px solid var(--section-1-border-color);
+    border-radius: 12px; 
+    font-size: 16px; 
+}
+.admin-control-panel-section-1 > form > div > textarea{ /* Section 1|Description Textarea Field */
+    border-radius: 12px; 
+    border: 1px solid var(--section-1-border-color);  
+    padding: 7px; 
+    font-size: 16px;
+    resize: none; 
+}
+.admin-control-panel-section-1 > form > div > button{ /* Section 1|Button */
+    border: 1px solid var(--admin-control-panel-section-button-color); 
+    border-radius: 12px; 
+    background-color: var(--admin-control-panel-section-button-color); 
+    padding: 5px 20px;
+    font-size: 16px;
+    color: #f3f4f6; 
+    cursor: pointer; 
+}
+.admin-control-panel-section-1 > form > div > button:hover{
+    border: 1px solid var(--admin-control-panel-section-button-color-hover);
+    background-color: var(--admin-control-panel-section-button-color-hover);
+}
+
+
+/* Admin Control Panel Section|Section 2 */ 
+.admin-control-panel-section-2{/* Admin Control Panel Section|Section 2 */ 
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+
+    background-color: var(--bg-color);
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px;
+    width: 800px; 
+    padding: 10px; 
+    backdrop-filter: blur(6px);  
+    color: #f3f4f6; 
+}
+.admin-control-panel-section-2 > h3{ 
+    margin-bottom: 10px;
+}
+.admin-control-panel-section-2 > fieldset{ /* Section 2 fieldset */ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}
+.admin-control-panel-section-2 > fieldset > legend{ /* Section 2 legend */
+    font-size: 20px; 
+}
+
+#admin-assign-tournament-image{ /* Section 2|Admin Assign Tournament Image Form */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+#admin-assign-tournament-image > div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px; 
+    background-color: rgba(255, 255, 255, 0);
+    text-align: left;
+    padding: 5px; 
+    font-size: 17px;
+    color: #f3f4f6;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+#admin-assign-tournament-image > div > label{
+    pointer-events: none; 
+}
+#admin-assign-tournament-image > div > div:nth-child(2){
+    pointer-events: none;
+}
+#admin-assign-tournament-image > div:hover{
+    background-color: var(--primary-bg-color-1); 
+}
+#admin-assign-tournament-image > div > div:nth-child(3){ /* Tournament Log Section|Add Image Window Container */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: var(--add-image-window-width);
+    height: var(--add-image-window-height); 
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 12px;
+    /* background-color: var(--add-image-window-bg-color);   */
+    background-color: rgba(29, 26, 26, 0.966);
+    padding: 5px;
+    transform: translateX(-100%); 
+    transition-property: transform;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-in-out; 
+}
+.admin-add-image-window-open{
+    transform: translateX(0) !important; 
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > div { /*Add Image Window Container|Close Button Container */ 
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    /* border: 1px solid black; */
+    text-align: right; 
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > div > svg{ /* Close Button Container|Close Button */
+    width: 40px;
+    fill: #f12711;
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > div > svg:hover{
+    fill: var(--hover-color-1);
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > input[type="file"]{
+    color: #f3f4f6;
+    width: 250px;
+    border: 1px solid var(--border-color-2); 
+    border-radius: 12px; 
+    padding: 10px; 
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > button[type="submit"]{
+    width: 130px; 
+    padding: 5px 10px;
+    border: 1px solid #f12711;
+    border-radius: 12px; 
+    background-color: #f12711;
+    color: #f3f4f6;  
+    cursor: pointer 
+}
+#admin-assign-tournament-image > div > div:nth-child(3) > button[type="submit"]:hover{
+    background-color: var(--hover-color-2);
+    border: 1px solid var(--hover-color-2); 
+}
+#admin-assign-tournament-image > div > div:nth-child(4){ /* Admin Assign Tournament Image|Add Image Button Container */ 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px; 
+    padding: 3px;
+}
+#admin-assign-tournament-image > div > div:nth-child(4) > svg{ /* Add Image Window Button Container|Add Image Button Icon */
+    width: 40px; 
+    fill: var(--add-image-window-icon-color);
+}
+#admin-assign-tournament-image > div > div:nth-child(4) > button{ /* Add Image Window Button Container|Add Image Button */ 
+    cursor: pointer;
+    padding: 5px 20px;
+    border: 1px solid var(--border-color-2); 
+    background-color: rgba(0, 0, 0, 0.301);
+    color: #f3f4f6;
+    border-radius: 12px;
+    font-size: 16px; 
+}
+#admin-assign-tournament-image > div > div:nth-child(4) > button:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}
+#admin-assign-tournament-image > div > div:nth-child(5){ 
+    /* border: 1px solid blue;  */
+    text-align: center;
+}
+#admin-assign-tournament-image > div > div:nth-child(5) > svg{
+    width: 100px; 
+    fill: #f3f4f6;
+}
+
+#admin-update-delete-tournament-image{ /* Section 2|Admin Update Delete Tournament Image */ 
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px; 
+    background-color: rgba(255, 255, 255, 0);
+    text-align: left;
+    padding: 5px; 
+    font-size: 17px;
+    color: #f3f4f6;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+#admin-update-delete-tournament-image:hover{
+    background-color: var(--primary-bg-color-1); 
+}
+
+/* Admin Update Delete Tournament Image|Update Form Window */
+#admin-update-delete-tournament-image > div:nth-child(3){ /* Admin Update Delete Tournament Image|Update Form Window */
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: var(--update-image-window-width);
+    height: var(--update-image-window-height); 
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 12px;
+    /* background-color: var(--add-image-window-bg-color);   */
+    background-color: rgba(29, 26, 26, 0.966);
+    padding: 5px;
+    transform: translateX(-100%); 
+    transition-property: transform;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-in-out; 
+}
+.admin-update-image-window-open{
+    transform: translateX(0) !important; 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > div{ /* Update Form Window|Close Button Container */ 
+    display: flex;
+    justify-content: end; 
+    align-items: center;
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > div > svg{ /* Close Button Container|Close Button */ 
+    width: 40px; 
+    fill: #f12711; 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > div > svg:hover{
+    fill: var(--hover-color-1); 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > form{ /* Update Form Window|Update Form */ 
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > form > input{ /* Update Form Window|Update File Input */  
+    color: #f3f4f6;
+    width: 250px;
+    border: 1px solid var(--border-color-2); 
+    border-radius: 12px; 
+    padding: 10px; 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > form > button[type="submit"]{ /* Update Form Window|Update Submit Button */ 
+    width: 130px; 
+    padding: 5px 10px;
+    border: 1px solid #f12711;
+    border-radius: 12px; 
+    background-color: #f12711;
+    color: #f3f4f6;  
+    cursor: pointer 
+}
+#admin-update-delete-tournament-image > div:nth-child(3) > form > button[type="submit"]:hover{
+    background-color: var(--hover-color-2);
+    border: 1px solid var(--hover-color-2); 
+}
+#admin-update-delete-tournament-image > div:nth-child(4){ /* Admin Update Tournament Image|Update Image Button Container */ 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px; 
+    padding: 5px;
+}
+#admin-update-delete-tournament-image > div:nth-child(4) > svg{ /* Admin Update Tournament Image|Update Image Button Icon */
+    width: 30px;
+    fill: var(--admin-update-delete-tournament-icon-color);
+}
+#admin-update-delete-tournament-image > div:nth-child(4) > button{ /*Admin Update Tournament Image|Update Image Button */
+    cursor: pointer;
+    padding: 5px 20px;
+    border: 1px solid var(--border-color-2); 
+    background-color: rgba(0, 0, 0, 0.301);
+    color: #f3f4f6;
+    border-radius: 12px;
+    font-size: 16px; 
+}
+#admin-update-delete-tournament-image > div:nth-child(4) > button:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}
+
+/* Admin Update Delete Tournament Image|Delete Form Container */
+#admin-update-delete-tournament-image > div:nth-child(5){ /* Admin Update Delete Tournament Image|Delete Form Container */
+    border: 1px solid var(--section-1-border-color);
+    border-radius: 12px;
+    padding: 5px;
+}
+#admin-update-delete-tournament-image > div:nth-child(5) > form{ /* Delete Form Container|Delete Form */ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+#admin-update-delete-tournament-image > div:nth-child(5) > form > svg{ /* Delete Form|Delete Icon */
+    width: 30px; 
+    fill: var(--admin-update-delete-tournament-icon-color); 
+}
+#admin-update-delete-tournament-image > div:nth-child(5) > form > button{ /* Delete Form|Delete Button */
+    cursor: pointer;
+    padding: 5px 20px;
+    border: 1px solid var(--border-color-2); 
+    background-color: rgba(0, 0, 0, 0.301);
+    color: #f3f4f6;
+    border-radius: 12px;
+    font-size: 16px; 
+}
+#admin-update-delete-tournament-image > div:nth-child(5) > form > button:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}
+
+/* Admin Update Delete Tournament Image|Image Container */
+#admin-update-delete-tournament-image > div:nth-child(6){ /* Admin Update Delete Tournament Image|Image Container */
+    text-align: center; 
+    /* border: 1px solid purple; */
+}
+#admin-update-delete-tournament-image > div:nth-child(6) > img{ /* Image Container|Image */
+    width: 500px;
+    border-radius: 12px
+}
+
+
+
+.admin-control-panel-section-3{ /* Admin Control Panel Section|Section 3 */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: var(--bg-color);
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px;
+    width: 800px;
+    padding: 10px; 
+    backdrop-filter: blur(6px); 
+}
+.admin-control-panel-section-3 > h3{
+    margin-bottom: 10px; 
+    color: #f3f4f6;
+}
+.admin-control-panel-section-3 > fieldset > legend{
+    font-size: 20px;
+    color: #f3f4f6; 
+}
+#admin-assign-tournaments{ /* Assign Tournaments Forms => Assign the tournaments to the public */
+    display:  flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 10px;
+    /* border: 1px solid white; */
+    color:#f3f4f6;
+}
+#admin-assign-tournaments > label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+}
+#admin-assign-tournaments > label:hover{
+    background-color: var(--primary-bg-color-1);
+}
+#admin-assign-tournaments > label > input{
+    cursor: pointer;
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
 /* |Dashboard Profile Info| */
 .profile-info{
-    border: 1px solid black;
+    border-bottom: 1px solid var(--profile-border-color);
+    color: white;
+    padding: 10px; 
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* |Miscellaneous| */
+.hide{
+    display: none;
+}
+.no-click{
+    pointer-events: none;
+}
+.click{
+    border: 1px solid blue;
 }
