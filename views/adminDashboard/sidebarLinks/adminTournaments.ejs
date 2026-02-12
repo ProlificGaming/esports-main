@@ -22,7 +22,7 @@
             <section class="admin-control-panel-section">
                 <h2>Add Tournaments/Events</h2>
 
-                <!-- Section 1 -->
+                <!-- Section 1: Add New Tournaments & Events -->
                 <section class="admin-control-panel-section-1">
                     <h3>Add new tournaments & events</h3>
 
@@ -40,8 +40,8 @@
                         <div>
                             <label for="game">Game</label>
                             <select name="game" id="game">
-                                <option value="call-of-duty-warzone">Warzone</option>
-                                <option value="apex-legends">Apex Legends</option>
+                                <option value="Call of Duty Warzone">Warzone</option>
+                                <option value="Apex Legends">Apex Legends</option>
                                 <option value="Marvel Rivals">Marvel Rivals</option>
                             </select>
                         </div>
@@ -62,6 +62,11 @@
                         </div>
 
                         <div>
+                            <label for="bracketCount">Number of brackets</label>
+                            <input type="number" id="bracketCount" name="bracketCount" />
+                        </div>
+
+                        <div>
                             <label for="description">Description</label>
                             <textarea name="description" id="description" cols="70" rows="12" placeholder="Enter the description here"></textarea>
                         </div>
@@ -72,7 +77,125 @@
                     </form>
                 </section>
 
-                <!-- Section 2 -->
+                <!-- Section 2: Update/Delete Control Panel -->
+                <section class="admin-update-delete-control-panel">
+                    <h3>Update or delete tournament/event logs</h3>
+                    <% if (tournaments){ %>
+                        <fieldset>
+                            <legend>You can update the tournament details or delete the tournament entirely</legend>
+                            <% tournaments.forEach((tournament) => { %>
+                                <form id="admin-update-delete-form" action="/admin/dashboard/tournaments/<%= tournament.name %>/update" method="POST" >
+                                    <div>
+                                        <label><%= tournament.name %></label>
+                                    </div>
+
+                                    <div>
+                                        <p><b>Type:</b> <%= tournament.type %></p>
+                                        <p><b>Game:</b> <%= tournament.game %></p>
+                                        <p><b>Start Date:</b> <%= tournament.startDate %></p>
+                                        <p><b>Time:</b> <%= tournament.time %></p>
+                                        <p><b>Player Count:</b> <%= tournament.playerCount %></p>
+                                        <p><b>Description:</b> <%= tournament.description %></p>
+
+                                        <!-- Status: DRAFT or PUBLIC -->
+                                        <p><b>Status: <%= tournament.status %></b></p>
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <svg aria-label="update-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.62,5.81C9.13,2.34 14.76,2.34 18.27,5.81L21,3V10.12M12.5,8V12.25L16,14.33L15.28,15.54L11,13V8H12.5Z"/>
+                                            </svg>
+                                            <button aria-label="update-button" type="button">update</button>  
+                                        </div>
+                                        <div>
+                                            <svg aria-label="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                                            </svg>
+                                            <button aria-label="delete-button" type="button">Delete</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete Window -->
+                                    <div>
+                                        <div>
+                                            <svg aria-label="close-button-icon" class="close-delete-window-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path class="close-delete-window-btn" d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p>Continue with deletion?</p>
+                                            <button type="submit" class="delete-tournament-submit-btn" name="action" value="delete">Delete</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Update tournament log window -->
+                                    <div>
+                                        <div>
+                                            <svg aria-label="close-button-icon" class="close-update-window-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path class="close-update-window-btn" d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <label for="updateName">Name</label>
+                                                <input type="text" id="updateName" class="update-tournament-element" name="updateName" placeholder="Enter tournament/event name." required />
+                                            </div>
+
+                                            <div>
+                                                <label for="updateType">Type</label>
+                                                <input type="text" id="updateType" class="update-tournament-element" name="updateType" placeholder="tournament, event, free-for-all, socials, etc.">
+                                            </div>
+
+                                            <div>
+                                                <label for="updateGame">Game</label>
+                                                <select name="updateGame" id="updateGame" class="update-tournament-element">
+                                                    <option value="Call of Duty Warzone">Warzone</option>
+                                                    <option value="Apex Legends">Apex Legends</option>
+                                                    <option value="Marvel Rivals">Marvel Rivals</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="updateStartDate">Start Date</label>
+                                                <input type="date" id="updateStartDate" class="update-tournament-element" name="updateStartDate" required />
+                                            </div>
+
+                                            <div>
+                                                <label for="updateTime">Time</label>
+                                                <input type="time" id="updateTime" class="update-tournament-element" name="updateTime" />
+                                            </div>
+
+                                            <div>
+                                                <label for="updatePlayerCount">Number of players</label>
+                                                <input type="number" id="updatePlayerCount" class="update-tournament-element" name="updatePlayerCount" required />
+                                            </div>
+
+                                            <div>
+                                                <label for="updateBracketCount">Number of Brackets</label>
+                                                <input type="number" id="updateBracketCount" class="update-tournament-element" name="updateBracketCount" />
+                                            </div>
+
+                                            <div>
+                                                <label for="updateDescription">Description</label>
+                                                <textarea name="updateDescription" id="updateDescription" class="update-tournament-element" cols="70" rows="12" placeholder="Update the description here"></textarea>
+                                            </div>
+
+                                            <div>
+                                                <button type="submit" class="update-tournament-element" name="action" value="update">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            <% }); %> 
+
+                        </fieldset>
+                    <% } %>
+
+
+                </section>
+
+                <!-- Section 3: Add Images/Banners To The Tournament/Event Logs  -->
                 <section class="admin-control-panel-section-2">
                     <h3>Add images/banners to the tournament/event logs</h3>
                     <% if (tournaments) { %> 
@@ -80,7 +203,7 @@
                             <legend>Click any section to add an image/banner</legend>
                             <% tournaments.forEach((tournament) =>{ %> 
 
-                                <% if (tournament.bannerPublicId === null) { %>  
+                                <% if (tournament.bannerPublicId === null) { %> <!-- If: The image/banner does not exist yet -->
                                     <form id="admin-assign-tournament-image" action="/admin/dashboard/tournaments/<%= tournament.name %>" method="POST" enctype="multipart/form-data">
                                         <div>
                                             <label><%= tournament.name %></label>
@@ -101,8 +224,8 @@
                                                         <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
                                                     </svg>
                                                 </div>
-                                                <input type="file" id="<%= tournament.name %>" name="banner" accept="image/*" required />
-                                                <button type="submit">Submit Image</button>
+                                                <input type="file" class="add-tournament-image-element" id="<%= tournament.name %>" name="banner" accept="image/*" required />
+                                                <button type="submit" class="add-tournament-image-element">Submit Image</button>
                                             </div>
 
                                             <!-- The tournament "add image/data button" (Will open the add image window) -->
@@ -120,7 +243,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                <% } else { %>
+                                <% } else { %> <!-- Else: The image/banner already exist -->
                                     <div id="admin-update-delete-tournament-image">
                                         <!-- Admin Tournament Name -->
                                         <label><%= tournament.name %></label>
@@ -144,8 +267,8 @@
                                             </div>
 
                                             <form id="admin-update-tournament-image" action="/admin/dashboard/tournaments/<%= tournament.name %>" method="POST" enctype="multipart/form-data">
-                                                <input type="file" id="<%= tournament.name %>" name="banner" accept="image/*" required />
-                                                <button type="submit">Update Image</button>
+                                                <input type="file" class="update-tournament-image-element" id="<%= tournament.name %>" name="banner" accept="image/*" required />
+                                                <button type="submit" class="update-tournament-image-element">Update Image</button>
                                             </form>
                                         </div>
                                         <div>
@@ -178,19 +301,65 @@
                     <% } %>
                 </section>
 
-                <!-- Section 3 -->
+                <!-- Section 4: Bracket Control Pnael -->
+                <section class="admin-bracket-control-panel">
+                    <h3>Enter players or teams into brackets</h3>
+                    <fieldset>
+                        <legend>You can add players or teams for each tournament/event log that has a bracket listing</legend>
+                        <% if (tournaments.length !== 0){ %>
+                            <% tournaments.forEach((tournament) => { %>
+                                <% if (tournament.bracketCount !== 0){ %>
+                                    <form id="admin-bracket-input" action="" method="POST">
+                                        <div class="admin-bracket-input-details-container">
+                                            <p><span>Name:</span> <span><%= tournament.name %></span></p>
+                                            <p><span>Game:</span> <span><%= tournament.game %></span></p>
+                                            <p><span>Type:</span> <span><%= tournament.type %></span></p>
+                                        </div>
+
+                                        <div class="admin-bracket-input-container">
+                                            <% brackets.forEach((bracket) => { %>
+                                                <% if (bracket.tournamentId === tournament.id){ %>
+                                                    <% if (bracket.roundNumber === 1){ %>
+                                                        <div> 
+                                                            <p><span>Round</span> <span><%= bracket.roundNumber %>:</span></p>
+                                                            <p><span>Match</span> <span><%= bracket.matchNumber %>:</span></p>
+
+                                                            <label for="bracketInputA">Team A/PlayerA</label>
+                                                            <input type="text" id="bracketInputA" name="bracketInputA" required />
+
+                                                            <p><span>VS</span></p>
+
+                                                            <label for="bracketInputB">Team B/Player B</label>
+                                                            <input type="text" id="bracketInputB" name="bracketInputB" required />
+                                                        </div>
+                                                    <% } %>
+                                                <% } %>
+                                            <% }); %>
+                                        </div>
+
+                                    </form>
+                                <% } %>
+                            <% }); %>
+                        <% }else{ %>
+
+                        <% } %> 
+                    </fieldset>
+                </section>
+
+                <!-- Section 5: Tournaments/Events Public Queue -->
                 <section class="admin-control-panel-section-3">
-                    <h3>Make tournaments/events public</h3>
+                    <h3>Tournaments/Events Queue</h3>
 
                     <% if (tournaments) { %>
                         <fieldset>
                             <legend>Select from the queue which tournaments to make public</legend>
 
-                            <form id="admin-assign-tournaments" action="/" method="POST">
+                            <form id="admin-assign-tournaments" action="/admin/dashboard/tournament-queue" method="POST">
                                 <% tournaments.forEach((tournament) => { %>
-                                    <label>
+                                    <label style="background-color: <%= tournament.status === 'PUBLIC' ? '#16a34a;' : 'none;' %> 
+                                    border: <%= tournament.status === 'PUBLIC' ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
                                         <div>
-                                            <input type="checkbox" id="<%= tournament.name %>" name=" <%= tournament.name %>">
+                                            <input type="checkbox" id="<%= tournament.name %>" name="<%= tournament.name %>" />
                                             <%= tournament.name %>
                                         </div>
 
@@ -201,10 +370,15 @@
                                             <p><b>Time:</b> <%= tournament.time %> (Pacific Standard Time (PST) - America/Los Angeles)</p>
                                             <p><b>Player Count:</b> <%= tournament.playerCount %></p>
                                             <p><b>Description:</b> <%= tournament.description %></p>
+
+                                            <!-- Status: Either 'DRAFT' or 'PUBLIC' -->
+                                            <p><b>Status: <%= tournament.status %></b></p>
                                         </div>
                                     </label>
                                 <% }) %> 
+                                <button type="submit">Submit</button>
                             </form>
+
                         </fieldset>
                     <% } else { %>
                         <p>There are currently no tournaments/events in the queue.</p>

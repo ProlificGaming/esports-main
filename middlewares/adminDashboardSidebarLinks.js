@@ -3,6 +3,7 @@ let adminDashboardSidebarLinks = [
     {name: "/dashboard/appearance", current: false},
     {name: "/dashboard/invite", current: false}, 
     {name: "/dashboard/tournaments", current: false}, 
+    {name: "/dashboard/application-layout", current: false},
 ];
 
 function adminDashboardSidebarLinksMiddleware(req, res, next){

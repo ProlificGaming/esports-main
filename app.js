@@ -13,6 +13,7 @@ const InitializePassport = require("./configurations/passportConfig.js");
 
 // Default routes: 
 const adminRoute = require('./routes/admin.js');
+const tournamentRoute = require('./routes/tournaments.js'); 
 
 require('dotenv').config();
 
@@ -100,15 +101,50 @@ app.use(passport.session());
  * -------------- Default Routes --------------
  */
 // Index route:
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+    const tournamentLog = await prisma.tournamentLog.findMany(); 
+
+    let tournaments = []; 
+    let timeZonesArr = []; 
+
+    // If the tournament status is 'PUBLIC' then the tournament will be displayed in the tournament section.
+    tournamentLog.forEach((tournament) => {
+        if (tournament.status === 'PUBLIC')
+        {
+            tournaments.push(tournament); 
+        }
+    });
+
+    // ...
+    tournamentLog.forEach((tournament) => {
+        for (const key in tournament.timeZones){
+            Object.assign(tournament.timeZones[key], { name: tournament.name }); 
+            timeZonesArr.push(tournament.timeZones[key]); 
+        }
+    });
+
+    timeZonesArr.forEach((timeZone) =>{
+        console.log(timeZone); // Testing
+    });
+    console.log('\n'); // Testing 
+
+    // Will display each tournament in the chosen aspect ratio. 
+    const tournamentSectionAspectRatio = await prisma.frontendLayout.findUnique({
+        where: { sectionName: "homepageTournamentSection" },
+    });
+
     res.status(200).render("main/index", {
         title: "Prolific Gaming",
         user: req.user,
+        tournamentSectionAR: tournamentSectionAspectRatio,
+        tournamentLog: tournaments,
+        timeZones: timeZonesArr, 
     });
 });
 
 // Other routes:
 app.use('/admin', adminRoute);
+app.use('/tournaments', tournamentRoute); 
 
 app.listen(PORT, () => {
     console.log(`The application is listening on PORT ${PORT}`); 

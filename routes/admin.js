@@ -3,6 +3,7 @@ const passport = require('passport');
 const prisma = require("../lib/prisma.js");
 const bcrypt = require("bcryptjs"); 
 
+const adminApplicationLayout = require("../controllers/adminControllers/adminApplicationLayout.js");
 const adminInvites = require("../controllers/adminInviteController.js");
 const adminForgotUsernamePassword = require("../controllers/adminControllers/adminForgotUsernamePassword.js"); 
 const adminControllers = require("../controllers/adminControllers/adminLoginController.js"); 
@@ -149,24 +150,45 @@ adminRoute.post("/dashboard/invite", adminInvites.inviteAdmin);
 // Admin: Set tournaments get route: (Sidebar link get route):
 adminRoute.get("/dashboard/tournaments", async (req, res) => {
     const tournaments = await prisma.tournamentLog.findMany();
+    const brackets = await prisma.bracket.findMany(); 
 
     res.render("adminDashboard/sidebarLinks/adminTournaments", {
         username: req.user.username,
         role: req.user.role,
         tournaments: tournaments, 
+        brackets: brackets, 
     }); 
 });
 
-adminRoute.post("/dashboard/tournaments", adminAddTournamentsEventsPost.adminAddTournamentsEventsPost); 
+adminRoute.post(
+    "/dashboard/tournaments", 
+    adminAddTournamentsEventsPost.adminAddTournamentsEventsPost
+);
+
+adminRoute.post(
+    "/dashboard/tournaments/:updateId/update",
+    adminAddTournamentsEventsPost.adminUpdateDeleteTournamentEventsPost
+);
+
 adminRoute.post(
     "/dashboard/tournaments/:tournamentId", 
     upload.single("banner"), 
     adminAddTournamentsEventsPost.adminAddTournamentImagesPost
 );
+
 adminRoute.post(
     "/dashboard/tournaments/:tournamentId/delete",
     adminAddTournamentsEventsPost.adminDeleteTournamentImagesPost
 );
+
+adminRoute.post(
+    "/dashboard/tournament-queue",
+    adminAddTournamentsEventsPost.adminPublicTournamentEventsPost
+);
+
+// Application Layout Content: 
+adminRoute.get("/dashboard/application-layout", adminApplicationLayout.adminApplicationLayoutGet); 
+adminRoute.post("/dashboard/application-layout", adminApplicationLayout.adminTournamentApplicationLayoutPost);  
 
 /**
  * ------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Application Layout</title>
+        <link rel="stylesheet" href="/styles/adminStyles.css">
+        <script src="/design/adminApplicationLayout.js" defer></script>
+    </head>
+
+    <body class="theme-<%= theme %>">
+        <!-- Admin Navigation -->
+        <%- include('../../utils/adminNav.ejs', { logInColor: '#65a30d' }) %>
+
+        <!-- Main Section For Admin Application Layout -->
+        <main id="admin-application-layout-main" class="admin-dashboard-setup">
+            <section class="profile-info">
+                <h2>Welcome: <%= username %></h2>
+                <p>Role: <%= role %></p>
+            </section>
+
+            <!-- Admin Sidebar -->
+            <%- include('../../utils/adminSidebar.ejs') %>
+
+            <!-- Admin Application Layout Section -->
+            <section class="admin-application-layout-section">
+                <h2>Application Layout</h2>
+
+                <section class="homepage-tournament-layout-section">
+                    <h3>Hompage Tournament Section - Aspect Ratio Layout</h3>
+                    <p>
+                        You can choose the aspect ratio you want for your images
+                        that will displayed in the hompage tournament section.
+                        The aspect ratio will effect the layout of this section.
+                    </p>
+                    <form action="/admin/dashboard/application-layout" method="POST">
+                        <label class="tournament-section-ar-1-1" for="ar-1-1" 
+                        style="background-color: <%= tournamentAspectRatio[0].current ? '#16a34a;' : 'none;' %>
+                        border: <%= tournamentAspectRatio[0].current ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
+                            <div>
+                                <input type="checkbox" id="ar-1-1" name="ar-1-1" />
+                                <h4>Aspect Ratio 1:1</h4>
+                            </div>
+
+                            <div>
+                                <h4>Layout Example</h4>
+                                <div>
+                                    <div>Tournaments</div>
+                                    <div>View all</div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-1-1-ex.png" alt="ar-1:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-1-1-ex.png" alt="ar-1:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-1-1-ex.png" alt="ar-1:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-1-1-ex.png" alt="ar-1:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="tournament-section-ar-3-2" for="ar-3-2" 
+                        style="background-color: <%= tournamentAspectRatio[1].current ? '#16a34a;' : 'none' %> 
+                        border: <%= tournamentAspectRatio[1].current ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
+                            <div>
+                                <input type="checkbox" id="ar-3-2" name="ar-3-2" />
+                                <h4>Aspect Ratio 3:2</h4>
+                            </div>
+
+                            <div>
+                                <h4>Layout Example</h4>
+                                <div>
+                                    <div>Tournaments</div>
+                                    <div>View all</div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-3-2-ex.png" alt="ar-3-2 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-3-2-ex.png" alt="ar-3-2 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-3-2-ex.png" alt="ar-3-2 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-3-2-ex.png" alt="ar-3-2 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="tournament-section-ar-4-3" for="ar-4-3" 
+                        style="background-color: <%= tournamentAspectRatio[2].current ? '#16a34a;' : 'none' %>
+                        border: <%= tournamentAspectRatio[2].current ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
+                            <div>
+                                <input type="checkbox" id="ar-4-3" name="ar-4-3" />
+                                <h4>Aspect Ratio 4:3</h4>
+                            </div>
+                            
+                            <div>
+                                <h4>Layout Example</h4>
+                                <div>
+                                    <div>Tournaments</div>
+                                    <div>View all</div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-4-3-ex.png" alt="ar-4:3 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-4-3-ex.png" alt="ar-4:3 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-4-3-ex.png" alt="ar-4:3 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-4-3-ex.png" alt="ar-4:3 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="tournament-section-ar-6-1" for="ar-6-1" 
+                        style="background-color: <%= tournamentAspectRatio[3].current ? '#16a34a;' : 'none' %>
+                        border: <%= tournamentAspectRatio[3].current ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
+                            <div>
+                                <input type="checkbox" id="ar-6-1" name="ar-6-1" />
+                                <h4>Aspect Ratio 6:1</h4>
+                            </div>
+
+                            <div>
+                                <h4>Layout Example</h4>
+                                <div>
+                                    <div>Tournaments</div>
+                                    <div>View all</div>
+                                    <div>
+
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-6-1-ex.png" alt="ar-6:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-6-1-ex.png" alt="ar-6:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-6-1-ex.png" alt="ar-6:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-6-1-ex.png" alt="ar-6:1 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="tournament-section-ar-16-9" for="ar-16-9" 
+                        style="background-color: <%= tournamentAspectRatio[4].current ? '#16a34a;' : 'none' %>
+                        border: <%= tournamentAspectRatio[4].current ? '1px solid #16a34a;' : '1px solid #f12711;' %>">
+                            <div>
+                                <input type="checkbox" id="ar-16-9" name="ar-16-9" />
+                                <h4>Aspect Ratio 16:9</h4>
+                            </div>
+
+                            <div>
+                                <h4>Layout Example</h4>
+                                <div>
+                                    <div>Tournaments</div>
+                                    <div>View all</div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-16-9-ex.png" alt="ar-16:9 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-16-9-ex.png" alt="ar-16:9 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-16-9-ex.png" alt="ar-16:9 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                    <div>
+                                        <div><img src="../../../images/adminImageTools/tournament-section-ar-16-9-ex.png" alt="ar-16:9 example"></div>
+                                        <div>Details about tournament</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <div>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </section>
+            </section>
+        </main>
+
+    </body>
+</html>

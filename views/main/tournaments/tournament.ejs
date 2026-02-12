@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/styles/styles.css"> <!-- Main styles for the entire application -->
+        <link rel="stylesheet" href="/styles/tournamentsStyles.css"> <!-- Tournaments styles for the tournament page -->
+
+        <script src="/windows/loginWindow.js" defer></script> <!-- Main Login Window file -->
+        <script src="/design/tournamentPageContent.js" defer></script> <!-- Main JavaScript Tournament Page Content -->
+    </head>
+
+    <body>
+        <!-- Public Navigation Header -->
+        <%- include('../../utils/nav.ejs') %> 
+
+        <!-- Log In Window -->
+        <%- include('../../utils/logInWindow.ejs') %> 
+
+        <!-- Main Content: Single Tournament Content -->
+        <main id="single-tournament-content">
+            <!-- Tournament/Event Title -->
+            <h1 id="single-tournament-content-title"><%= title %></h1>
+
+            <!-- Single Tournament Container -->
+            <section class="single-tournament-section">
+                <div>
+                    <p><span><%= tournament.type %></span></p>
+                    <% if (tournamentAr.SectionAspectRatio === 'ar-16-9'){ %> 
+                        <div>Aspect Ratio 16:9</div>
+
+                    <% }else if (tournamentAr.SectionAspectRatio === 'ar-1-1'){ %> 
+                        <div>Aspect Ratio 1:1</div>
+
+                    <% }else if (tournamentAr.SectionAspectRatio === 'ar-3-2'){ %> 
+                        <div>Aspect Ratio 3:2</div>
+
+                    <% }else if (tournamentAr.SectionAspectRatio === 'ar-4-3'){ %>
+                        <div>Aspect Ratio 4:3</div>
+
+                    <% }else if (tournamentAr.SectionAspectRatio === 'ar-6-1'){ %>
+                        <div class="single-tournament-container">
+
+                            <!-- Background image container for every tournament/event -->
+                            <!-- Note: Can probably be placed outside of the Aspect Ratios sections -->
+                            <div class="<%= tournamentGame %>"></div>
+
+                            <div class="single-tournament-image-container"> 
+                                <div class="quad quad-1">QOne</div>
+                                <div class="quad quad-2">QTwo</div>
+                                <div class="quad quad-3">QThree</div>
+                                <div class="quad quad-4">QFour</div>
+                                <% if (tournament.bannerUrl !== null){ %>
+                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                <% }else{ %>
+                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                <% } %>  
+                            </div>
+
+                            <div class="single-tournament-details-container">
+                                <div>
+                                    <h3>Details</h3>
+                                    <p><span>Game:</span> <span><%= tournament.game %></span></p>
+                                    <p><span>Player Count:</span> <span><%= tournament.playerCount %></span></p>
+                                    <p><span>Start Date:</span> <span><%= tournament.startDate %></span></p>
+                                    <p><span>Time:</span> <span><%= tournament.time %></span></p>
+                                    <p><span>Description:</span> <span><%= tournament.description %></span></p>
+                                </div>
+
+                                <div>
+                                    <h3>Time zones</h3>
+                                    <div>
+                                        <p><span>Domestic time zones</span></p>
+                                        <% for (const key in tournament.timeZones){ %>
+                                            <p>
+                                                <span><%= tournament.timeZones[key].time %></span> 
+                                                <span>(<%= tournament.timeZones[key].utc %>)</span>
+                                                <span><%= tournament.timeZones[key].zone %></span>
+                                            </p>
+                                        <% } %>
+                                    </div>
+
+                                    <div>
+                                        <p><span>International time zones</span></p>
+                                        <% for (const key in tournament.intTimeZ){ %>
+                                            <p>
+                                                <span><%= tournament.intTimeZ[key].date %></span>
+                                                <span><%= tournament.intTimeZ[key].time %></span>
+                                                <span>(<%= tournament.intTimeZ[key].utc %>)</span>
+                                                <span><%= tournament.intTimeZ[key].zone %></span>
+                                            </p>
+                                        <% } %> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="single-tournament-signup-container">
+                                <div>
+                                    <h3>Enter in before the closing date</h3>
+                                </div>
+                                <div>
+                                    <p><span>Players:</span> <span>N/A</span></p>
+                                    <p><span>Teams:</span> <span>N/A</span></p>
+                                </div>
+                                <div>
+                                    <p><span>Sign up closing date:</span> <span>N/A</span></p>
+                                    <a href="#">Sign up</a>
+                                </div>
+                            </div>
+
+                            <div class="single-tournament-brackets-container">
+
+                            </div>
+                        </div>
+
+                    <% } %>
+                </div>
+
+            </section>
+        </main>
+    </body>
+</html>

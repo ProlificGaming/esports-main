@@ -35,10 +35,23 @@ async function main() {
 
     const tournamentLog = await prisma.tournamentLog.findUnique({
         where: {
-            name: "Model",
+            name: "Model One",
         }
     }); 
     console.log(tournamentLog); // Testing 
+
+    // await prisma.frontendLayout.create({
+    //     data: {
+    //         sectionName: "tournamentspageTournamentsSection",
+    //     }
+    // });
+
+    const tournamentsLayout = await prisma.frontendLayout.findUnique({
+        where: { 
+            sectionName: "tournamentspageTournamentsSection", 
+        }
+    });
+    console.log(tournamentsLayout); // Testing 
 }
 
 main()

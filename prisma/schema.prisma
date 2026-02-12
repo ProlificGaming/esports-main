@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider     = "prisma-client-js"
+  output       = "../generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -28,18 +28,18 @@ datasource db {
 /// Reset attempts on success => Yes
 /// Lockout time extends only once => Yes
 model Admin {
-  id                   String    @id @default(cuid())
-  username             String?   @unique
-  password             String?
+  id       String  @id @default(cuid())
+  username String? @unique
+  password String?
 
-  role                 String    @default("admin")
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime? @updatedAt
-  activationToken      String?   @unique
+  role            String    @default("admin")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+  activationToken String?   @unique
 
-  email                String?
-  isActive             Boolean   @default(false)
-  tokenExpiresAt       DateTime?
+  email          String?
+  isActive       Boolean   @default(false)
+  tokenExpiresAt DateTime?
 
   // Password reset token fields for forgotten password. 
   passwordResetExpires DateTime?
@@ -51,42 +51,74 @@ model Admin {
   lockoutUntil         DateTime?
 
   // Admin Appearance (Page Themes):
-  theme                String    @default("orange-creme") // <--- ADD THIS
+  theme String @default("orange-creme") // <--- ADD THIS
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // |Security Log|
 model SecurityLog {
-  id                  String      @id @default(cuid())
-  ipAddress           String 
-  username            String?
-  success             Boolean
-  reason              String
-  userAgent           String?
-  createdAt           DateTime    @default(now())
+  id        String   @id @default(cuid())
+  ipAddress String
+  username  String?
+  success   Boolean
+  reason    String
+  userAgent String?
+  createdAt DateTime @default(now())
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // |Tournament Log|
-model TournamentLog{
-  id                  String        @id @default(cuid())
-  name                String?       @unique
-  type                String?
-  game                String?
-  startDate           DateTime? 
-  time                String? 
-  playerCount         Int           @default(0)
-  description         String? 
+model TournamentLog {
+  id           String  @id @default(cuid())
+  name         String? @unique
+  type         String?
+  game         String?
+  startDate    String?
+  time         String?
+  playerCount  Int     @default(0)
+  bracketCount Int     @default(0)
+  description  String?
+  timeZones    Json?
+  intTimeZ     Json?
 
-  bannerUrl           String?
-  bannerPublicId      String?
+  bannerUrl      String?
+  bannerPublicId String?
 
-  status              String        @default("DRAFT") // DRAFT | PUBLI 
+  status String @default("DRAFT") // DRAFT | PUBLIC
 
-  createdById         String?
-  createdAt           DateTime      @default(now())
+  createdById String?
+  createdAt   DateTime  @default(now())
+  brackets    Bracket[]
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// |Bracket|
+model Bracket {
+  id           String @id @default(cuid())
+  tournamentId String
+  roundNumber  Int // 1 = round of 16, 2 = quarterfinals, etc
+  matchNumber  Int
+
+  player1 String?
+  player2 String?
+  winner  String?
+
+  tournament TournamentLog @relation(fields: [tournamentId], references: [id])
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// |Frontend Layout|
+model FrontendLayout {
+  id                 String  @id @default(cuid())
+  sectionName        String? @unique
+  SectionAspectRatio String?
+
+  createdById String?
+  createdAt   DateTime @default(now())
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

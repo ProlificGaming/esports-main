@@ -5,73 +5,256 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><%= title %></title>
         <link rel="stylesheet" href="/styles/styles.css">
-        <script  src="windows/loginWindow.js" defer></script>
+        <link rel="stylesheet" href="/styles/homepageStyles.css">
+        
+        <script src="windows/loginWindow.js" defer></script>
+        <script src="design/homeSlideshowHeader.js" defer></script>
+        <script src="design/homeTimeZoneCentral.js" defer></script>
     </head>
 
     <body>
+        <!-- Public Navigation Header -->
         <%- include('../utils/nav.ejs') %> 
 
         <!-- Log-In Window -->
         <%- include('../utils/logInWindow.ejs') %> 
-        <!-- <section class="log-in-window">
-            <div class="log-in-window-item-one">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
-                </svg>
-            </div>
 
-            <div class="log-in-window-item-two">
-                <% if (user && user.role === "SuperAdmin"){ %>
-                    <img src="" alt="">
-                    <div>
-                        <span><%= user.username %></span>
-                        <a href="/admin/dashboard">View admin dashboard</a>
+        <!-- Homepage slideshow header -->
+        <main id="homepage-content">
+
+            <!-- Slideshow Header -->
+            <section id="homepage-slideshow-section">
+                <div class="slideshow-glass">
+
+                    <div class="slide active">
+                        <img src="../../images/standardGameImages/apex-legends-slide-1.jpg" alt="apex-legends-img">
+                        <div class="overlay"></div>
+
+                        <div class="slide-content">
+                            <h1>Apex Legends</h1>
+                            <p>High-octane competitive battle royale</p>
+                            <a href="#" class="cta-btn">View Apex Tournaments</a>
+                        </div>
+                        
                     </div>
-                <% } else { %>
-                    <div>Not logged in</div>
-                <% } %>
-            </div>
 
-            <div class="log-in-window-item-three">
-                <% if (user && user.role === "SuperAdmin"){ %> 
-                    <p>Role: <span>Super Admin</span></p>
-                <% } else { %> 
-                    <h2>Member Login</h2>
-                    <form action="/" method="POST">
-                        <div>
-                            <label for="admin-username">Username</label>
-                            <input type="text" id="admin-username" name="admin-username" required /> 
+                    <div class="slide active">
+                        <img src="../../images/standardGameImages/marvel-rivals-slide-1.jpeg" alt="marvel-rivals-img">
+                        <div class="overlay"></div>
+
+                        <div class="slide-content">
+                            <h1>Marvel Rivals</h1>
+                            <p>Hero-based competitive combat</p>
+                            <a href="#" class="cta-btn">Enter Arena</a>
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="admin-password">Password</label>
-                            <input type="password" id="admin-password" name="admin-password" required />
+                    <div class="slide active">
+                        <img src="../../images/standardGameImages/warzone-slide-1.jpg" alt="warzone-img">
+                        <div class="overlay"></div>
+
+                        <div class="slide-content">
+                            <h1>Warzone</h1>
+                            <p>Squad-based tactical warfare</p>
+                            <a href="#" class="cta-btn">Join the Fight</a>
                         </div>
+                    </div>
 
-                        <div>
-                            <button type="submit">Sumbit</button>
-                        </div>
-                    </form>
-                <% } %> 
-            </div>
+                    <!-- Flash Overlay -->
+                    <div class="flash"></div>
 
-            <div class="log-in-window-item-four">
-                <% if (user && user.role === "SuperAdmin"){ %> 
-                    <a href="#">Personal Profile</a>
-                <% } else { %>
-                    <div>Forgot Password</div>
-                    <div>Forgot Username</div>
-                    <div>Sign Up</div>
-                <% } %> 
-            </div>
+                    <!-- Navigation -->
+                    <button class="nav prev">&#10094;</button>
+                    <button class="nav next">&#10095;</button>
 
-            <div class="log-in-window-item-five">
-                <% if (user && (user.role === "SuperAdmin" || user.role === "Admin" || user.role === "Mod")) { %> 
-                    <a href="/admin/logout">Logout</a>
-                <% } else{ %>
-                    <a href="/admin">Admin log in</a>
-                <% } %>
-            </div>
-        </section> -->
+                </div>
+            </section>
+
+            <!-- Tournamnet Section -->
+            <section id="homepage-tournaments-section">
+                <div id="all-tournaments">
+                    <div><span>Tournaments</span></div>
+                    <div><a href="/tournaments">View all</a></div>
+
+                    <div>
+                        <% if (tournamentSectionAR.SectionAspectRatio === null || tournamentSectionAR.SectionAspectRatio === 'ar-16-9'){ %> 
+                            <div class="display-ar-16-9">
+                                <% tournamentLog.forEach((tournament, index) => { %>
+                                    <% if (index !== 4){ %>
+                                        <a href="#" class="classic-aspect-ratio">
+                                            <div>
+                                                <% if (tournament.bannerUrl !== null){ %>
+                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                <% } else { %>
+                                                    <img src="../../images/standardGameImages/default_image_aspect_ratio-16-9.png" alt="no image">
+                                                <% } %>
+                                            </div>
+                                            <div>
+                                                <h1><%= tournament.name %></h1>
+                                                <div>
+                                                    <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                    <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                    <p><span><b>PLAYER COUNT:</b></span> <span><%= tournament.playerCount %></span></p>
+                                                    <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                    <p><span><b>TIME:</b></span> <span><%= tournament.time %></span></p>
+                                                    <p><span><b>DESCRIPTION:</b></span> <span><%= tournament.description %></span></p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h2>Time Zone List</h2>
+                                                <div>
+                                                    <p><span><b>Domestic Times</b></span></p>
+                                                    <% timeZones.forEach((timezone) => { %>
+                                                        <% if (timezone.name === tournament.name){ %>
+                                                            <p>
+                                                                <span><b><%= timezone.time %></b></span> <span><%= timezone.zone %></span>
+                                                                <span>(<%= timezone.utc %>)</span>
+                                                            </p>
+                                                        <% } %>
+                                                    <% }); %>
+                                                </div>
+
+                                                <div>
+                                                    <p><span><b>International Times</b></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+                        <% }else if (tournamentSectionAR.SectionAspectRatio === 'ar-1-1'){ %>
+                            <div class="display-ar-1-1">
+                                <% tournamentLog.forEach((tournament, index) => { %>
+                                    <% if (index !== 4){ %> 
+                                        <a href="#" class="classic-aspect-ratio">
+                                            <div>
+                                                <% if (tournament.bannerUrl !== null){ %>
+                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                <% } else { %>
+
+                                                <% } %>
+                                            </div>
+                                            <div>
+                                                <h1><%= tournament.name %></h1>
+                                                <div>
+                                                    <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                    <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                    <p><span><b>PLAYER COUNT:</b></span> <span><%= tournament.playerCount %></span></p>
+                                                    <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                    <p><span><b>TIME:</b></span> <span><%= tournament.time %></span></p>
+                                                    <p><span><b>DESCRIPTION:</b></span> <span><%= tournament.description %></span></p>
+                                                </div>  
+                                            </div>
+                                        </a>
+                                    <% } %> 
+                                <% }); %>
+                            </div>
+                        <% }else if (tournamentSectionAR.SectionAspectRatio === 'ar-3-2'){ %> 
+                            <div class="display-ar-3-2">
+                                <% tournamentLog.forEach((tournament, index) => { %>
+                                    <% if (index !== 4){ %>
+                                        <a href="#" class="classic-aspect-ratio">
+                                            <div>
+                                                <% if (tournament.bannerUrl !== null){ %>
+                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                <% }else{ %>
+                                                    <img src="../../images/standardGameImages/default_image_aspect_ratio-3-2.png" alt="no image">
+                                                <% } %> 
+                                            </div>
+                                            <div>
+                                                <h1><%= tournament.name %></h1>
+                                                <div>
+                                                    <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                    <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                    <!-- <p><span><b>PLAYER COUNT:</b></span> <span><%= tournament.playerCount %></span></p> -->
+                                                    <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                    <p><span><b>TIME:</b></span> <span><%= tournament.time %></span></p>
+                                                    <!-- <p><span><b>DESCRIPTION:</b></span> <span><%= tournament.description %></span></p> -->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <% } %> 
+                                <% }); %> 
+                            </div>
+                        <% }else if (tournamentSectionAR.SectionAspectRatio === 'ar-4-3'){ %>
+                            <div class="display-ar-4-3">
+                                <% tournamentLog.forEach((tournament, index) => { %>
+                                    <% if (index !== 4){ %>
+                                        <% if (index === 1 || index === 3){ %>
+                                            <a href="#" class="classic-aspect-ratio">
+                                                <div>
+                                                    <% if (tournament.bannerUrl !== null){ %>
+                                                        <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                    <% }else { %> 
+                                                        <img src="../../images/standardGameImages/default_image_aspect_ratio-4-3.png" alt="no image">
+                                                    <% } %> 
+                                                </div>
+                                                <div>
+                                                    <h1><%= tournament.name %></h1>
+                                                    <div>
+                                                        <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                        <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                        <p><span><b>PLAYER COUNT:</b></span> <span><%= tournament.playerCount %></span></p>
+                                                        <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                        <p><span><b>DESCRIPTION:</b></span> <span><%= tournament.description %></span></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        <% } else { %>
+                                            <a href="#" class="classic-aspect-ratio">
+                                                <div>
+                                                    <h1><%= tournament.name %></h1>
+                                                    <div>
+                                                        <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                        <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                        <p><span><b>PLAYER COUNT:</b></span> <span><%= tournament.playerCount %></span></p>
+                                                        <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                        <p><span><b>DESCRIPTION:</b></span> <span><%= tournament.description %></span></p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <% if (tournament.bannerUrl !== null){ %>
+                                                        <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                    <% } else { %>
+                                                        <img src="../../images/standardGameImages/default_image_aspect_ratio-4-3.png" alt="no image">
+                                                    <% } %>
+                                                </div>
+                                            </a>
+                                        <% } %>
+
+                                    <% } %>
+                                <% }); %>
+                            </div>
+                        <% }else if (tournamentSectionAR.SectionAspectRatio === 'ar-6-1'){ %>
+                            <div class="display-ar-6-1">
+                                <% tournamentLog.forEach((tournament, index) => { %>
+                                    <% if (index !== 4){ %> 
+                                        <a href="#" class="atypical-aspect-ratio">
+                                            <div>
+                                                <% if (tournament.bannerUrl !== null){ %>
+                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                <% } else{ %>
+                                                    <img src="../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                <% } %>
+                                            </div>
+                                            <div>
+                                                <h1><%= tournament.name %></h1>
+                                                <div>
+                                                    <p><span><b>GAME:</b></span> <span><%= tournament.game %></span></p>
+                                                    <p><span><b>TYPE:</b></span> <span><%= tournament.type %></span></p>
+                                                    <p><span><b>START DATE:</b></span> <span><%= tournament.startDate %></span></p>
+                                                    <p><span><b>TIME:</b></span> <span><%= tournament.time %></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <% } %> 
+                                <% }); %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </body>
 </html>

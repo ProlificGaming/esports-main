@@ -1,0 +1,556 @@
+#homepage-content{
+    border: 1px solid red;
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Homepage Slideshow Section| */
+#homepage-slideshow-section{ /* Main Homepage Slideshow Section */
+    display: flex;
+    justify-content: center;
+
+    border: 1px solid green;
+}
+
+.slideshow-glass{ /* Slideshow Glass Container (Only shown when the images are smaller) */
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    overflow: hidden; 
+}
+.slide { /* Image Slide Containers */
+    position: absolute; 
+    width: 100%; 
+    opacity: 0;
+    transform: scale(1.05); 
+    transition: opacity 1s ease, transform 1.2s ease; 
+}
+.slide > img[src]{ /* Image Slides */
+    width: 100%;
+    object-fit: cover;;
+}
+.slide.active{ /* Active Slides */ 
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+}
+
+/* Overlay - Dark gradient overlay for the text readability */
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3));
+}
+
+/* Slideshow Content */
+.slide-content{ 
+    position: absolute; 
+    left: 100px;
+    top: 100px;
+    z-index: 3; 
+    color: #fff;
+    max-width: 480px; 
+    /* border: 1px solid red;  */
+}
+.slide-content h1{
+    font-size: 3rem; 
+    margin-bottom: 12px;
+}
+.slide-content p{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* CTA */
+.cta-btn{
+    display: inline-block; 
+    padding: 14px 30px; 
+    border-radius: 30px; 
+    background-color: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(8px);
+    color: #fff; 
+    font-weight: 600; 
+    text-decoration: none; 
+    transition: background-color 0.3s; 
+}
+.cta-btn:hover{
+    background-color: rgba(255, 255, 255, 0.3); 
+}
+
+
+/* Flash Effect */
+.flash{
+    position: absolute;
+    inset: 0;
+    background-color: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+} 
+.flash.active{
+    animation-name: flash;
+    animation-duration: 0.35s;
+    animation-timing-function: ease;
+}
+@keyframes flash{
+    0% { opacity: 0; }
+    20% { opacity: 0.35; }
+    100% { opacity: 0; }
+}
+
+/* Navigation arrows ON image */ 
+.nav{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); 
+    z-index: 4;
+    width: 60px; 
+    border-radius: 50%;
+    border: none; 
+    cursor: pointer; 
+    font-size: 2.5rem; 
+    color: #fff;
+    background-color: rgba(0,0,0,0.4); 
+    backdrop-filter: blur(6px); 
+    transition: background-color 0.3s, transform 0.2s;
+}
+.nav:hover{
+    background-color: rgba(0,0,0,0.75); 
+    transform: translateY(-50%) scale(1.05); 
+}
+.prev { left: 25px; }
+.next { right: 25px; }
+ 
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Homepage Tournaments Section| */
+#homepage-tournaments-section{
+    border: 1px solid green; 
+    padding: 100px 200px 100px 200px; 
+    color: #fff; 
+}
+#all-tournaments{ /* All containers in the Tournaments Section */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(2, auto);
+    gap: 5px;
+    grid-template-areas: 
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemThree itemThree";
+
+    /* border: 1px solid white;  */
+}
+#all-tournaments > div{
+    /* border: 1px solid orange;  */
+}
+#all-tournaments > div:nth-child(1){ /* Section Title Container */
+    grid-area: itemOne; 
+    font-size: 25px; 
+}
+
+#all-tournaments > div:nth-child(2){ /* View All Link Container */
+    grid-area: itemTwo; 
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+#all-tournaments > div:nth-child(2) a{ /* View All Link */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+    /* font-weight: bold;  */
+    text-decoration: none;
+    color: #f3f4f6;
+    padding: 7px 15px 7px 15px;
+    border-radius: 10px;
+    cursor: pointer; 
+}
+#all-tournaments > div:nth-child(2) a:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#all-tournaments > div:nth-child(3){ /* Tournament Log Container + Aspect Ratio Displays */
+    grid-area: itemThree;
+    padding: 10px;
+}
+/* #all-tournaments > div:nth-child(3) > div > a { 
+    display: flex;
+    gap: 25px; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(6px); 
+    text-decoration: none; 
+    color: #f3f4f6; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+} */
+#all-tournaments > div:nth-child(3) > div > a > div{ /* All 4 Tournament Links In The Tournament Section */
+    /* border: 1px solid red;  */
+}
+.classic-aspect-ratio{ /* Tournament Links + Aspect Ratios 1:1, 3:2, 4:3, and 16:9 */ 
+    display: flex;
+    gap: 25px; 
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Theme appearance edit */
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05); /* Theme appearance edit */
+    backdrop-filter: blur(6px); 
+    text-decoration: none; 
+    color: #f3f4f6; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+/* |Tournament Section|Aspect Ratio 16:9| */
+.display-ar-16-9{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+    grid-template-areas:
+        "itemOne itemOne itemOne itemOne"
+        "itemTwo itemTwo itemTwo itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour";
+}
+.display-ar-16-9 > a > div:nth-child(1){ /* Container 1: Tournament Link Image/Banner container */
+    width: 500px; /* 16 */
+    height: 281px; /* 9 */ 
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease;
+}
+.display-ar-16-9 > a > div:nth-child(1):hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.display-ar-16-9 > a > div:nth-child(1) > img[src]{ /* Tournament Link Image/Banner */
+    width: 100%;
+    height: 100%; 
+    border-radius: 12px;
+    object-fit:contain; 
+    transition: transform 0.3s ease-in-out;
+}
+.display-ar-16-9 > a > div:nth-child(1) > img[src]:hover{
+    transform: scale(1.08); 
+}
+
+.display-ar-16-9 > a > div:nth-child(2){ /* Container 2: Tournament Link Details Container */
+    flex: 1; 
+}
+.display-ar-16-9 > a > div:nth-child(2) > h1{ /* Tournament Link Details Header */
+    margin-bottom: 5px; 
+}
+.display-ar-16-9 > a > div:nth-child(2) > div{ /* Tournament Link Details */
+    display: flex; 
+    flex-direction: column; 
+    gap: 3px;
+}
+
+.display-ar-16-9 > a > div:nth-child(3){ /* Container 3: Tournament Link Timezone Container */ 
+    display: flex; 
+    flex-direction: column;
+    gap: 5px; 
+
+    font-size: 14px; 
+}
+
+.display-ar-16-9 > a:nth-child(1){ /* Tournament Link 1 */
+    grid-area: itemOne;
+}
+.display-ar-16-9 > a:nth-child(2){ /* Tournament Link 2 */ 
+    grid-area: itemTwo;
+}
+.display-ar-16-9 > a:nth-child(3){ /* Tournament Link 3 */
+    grid-area: itemThree;
+}
+.display-ar-16-9 > a:nth-child(4){ /* Tournament Link 4 */
+    grid-area: itemFour; 
+}
+
+
+/* |Tournament Section|Aspect Ratio 1:1| */
+.display-ar-1-1{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto; 
+    gap: 10px;
+    grid-template-areas:
+        "itemOne itemOne itemTwo itemTwo"
+        "itemThree itemThree itemFour itemFour";
+}
+
+.display-ar-1-1 > a > div:nth-child(1){ /* Container 1: Tournament Link Image/Banner Container */
+    width: 300px; /* 1:1 */
+    overflow: hidden;
+    position: relative; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease; 
+}
+.display-ar-1-1 > a > div:nth-child(1):hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.display-ar-1-1 > a > div:nth-child(1) > img[src]{ /* Tournament Link Image/Banner */
+    width: 100%;
+    height: 100%; 
+    border-radius: 12px;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+.display-ar-1-1 > a > div:nth-child(1) > img[src]:hover{
+    transform: scale(1.08); 
+}
+
+.display-ar-1-1 > a > div:nth-child(2){ /* Container 2: Tournament Link Details Container  */
+    flex: 1; 
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.display-ar-1-1 > a > div:nth-child(2) > div{ /* Tournament Link Details */
+    display: flex; 
+    flex-direction: column;
+    gap: 3px;
+}
+
+.display-ar-1-1 > a:nth-child(1){ /* Tournament Link 1 */
+    grid-area: itemOne;
+}
+.display-ar-1-1 > a:nth-child(2){ /* Tournament Link 2 */
+    grid-area: itemTwo;
+}
+.display-ar-1-1 > a:nth-child(3){ /* Tournament Link 3 */
+    grid-area: itemThree;
+}
+.display-ar-1-1 > a:nth-child(4){ /* Tournament Link 4 */
+    grid-area: itemFour;
+}
+
+
+/* |Tournament Section|Aspect Ratio 3:2| */ 
+.display-ar-3-2{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: auto;
+    gap: 10px; 
+    grid-template-areas:
+        "itemOne itemOne itemTwo itemTwo"
+        "itemThree itemThree itemFour itemFour";
+}
+
+.display-ar-3-2 > a{ /* Display Aspect Ratio Tournament Links */ 
+    display: flex;
+    flex-direction: column; 
+    gap: 5px;
+}
+
+.display-ar-3-2 > a > div:nth-child(1){ /* Container 1: Tournament Links Image Container */
+    margin: 0 auto;
+    width: 550px; /* 3 */
+    height: 366.666666667px; /* 2 */ 
+    overflow: hidden;
+    position: relative; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease; 
+}
+.display-ar-3-2 > a > div:nth-child(1):hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.display-ar-3-2 > a > div:nth-child(1) > img[src]{ /* Tournaments Links Image */
+    width: 100%;
+    height: 100%; 
+    border-radius: 12px; 
+    object-fit: contain; 
+    transition: transform 0.3s ease-in-out;
+}
+.display-ar-3-2 > a > div:nth-child(1) > img[src]:hover{
+    transform: scale(1.08); 
+}
+
+.display-ar-3-2 > a:nth-child(1){ /* Tournament Link 1 */
+    grid-area: itemOne;
+}
+.display-ar-3-2 > a:nth-child(2){ /* Tournament Link 2 */
+    grid-area: itemTwo;
+}
+.display-ar-3-2 > a:nth-child(3){ /* Tournament Link 3 */
+    grid-area: itemThree;
+}
+.display-ar-3-2 > a:nth-child(4){ /* Tournament Link 4 */
+    grid-area: itemFour; 
+}
+
+
+/* |Tournament Section|Aspect Ratio 4:3| */
+.display-ar-4-3{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 10px; 
+    grid-template-areas: 
+        "itemOne itemOne itemOne itemOne"
+        "itemTwo itemTwo itemTwo itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour";
+}
+
+.display-ar-4-3 > a:nth-child(2n + 1){ /* Tournament Links 1 & 3 */
+    display: flex;
+    justify-content: space-around;
+    gap: 200px !important; 
+}
+.display-ar-4-3 > a:nth-child(2n + 1) > div:nth-child(2){ /* Container 2: Tournament Links 1 & 3 Images Container */
+    width: 440px; /* 4 */
+    height: 338.5px; /* 3 */
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease;
+}
+.display-ar-4-3 > a:nth-child(2n + 1) > div:nth-child(2):hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.display-ar-4-3 > a:nth-child(2n + 1) > div:nth-child(2) > img[src]{ /* Tournament Links 1 & 3 Images */
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; 
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out; 
+}
+.display-ar-4-3 > a:nth-child(2n + 1) > div:nth-child(2) > img[src]:hover{
+    transform: scale(1.08); 
+}
+
+.display-ar-4-3 > a:nth-child(2n + 2){ /* Tournament Links 3 & 4 */
+    display: flex;
+    justify-content: space-around; 
+    gap: 200px !important;
+}
+.display-ar-4-3 > a:nth-child(2n + 2) > div:nth-child(1){ /* Container 1: Tournament Links 2 & 4 Images Container */
+    width: 440px; /* 4 */
+    height: 338.5px; /* 3 */
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease;
+}
+.display-ar-4-3 > a:nth-child(2n + 2) > div:nth-child(1):hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.display-ar-4-3 > a:nth-child(2n + 2) > div:nth-child(1) > img[src]{ /* Tournaments Links 2 & 4 Images */
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; 
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out; 
+}
+.display-ar-4-3 > a:nth-child(2n + 2) > div:nth-child(1) > img[src]:hover{
+    transform: scale(1.08); 
+}
+
+.display-ar-4-3 > a:nth-child(1){ /* Tournament Link 1 */
+    grid-area: itemOne;
+}
+.display-ar-4-3 > a:nth-child(2){ /* Tournament Link 2 */
+    grid-area: itemTwo;
+}
+.display-ar-4-3 > a:nth-child(3){ /* Tournament Link 3 */
+    grid-area: itemThree; 
+}
+.display-ar-4-3 > a:nth-child(4){ /* Tournament Link 4 */
+    grid-area: itemFour; 
+}
+
+/* |Tournament Section|Aspect Ratio 6:1| */
+.display-ar-6-1{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+        "itemOne itemOne itemOne itemOne"
+        "itemTwo itemTwo itemTwo itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour";
+    justify-items: center; 
+    gap: 10px;
+    /* border: 1px solid red;  */
+}
+
+.atypical-aspect-ratio{ /* Tournament Link + Aspect Ratio 6:1 */
+    width: 1200px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    transition: box-shadow 0.3s ease, width 1s ease;  
+}
+.atypical-aspect-ratio:hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+
+.atypical-aspect-ratio > div:nth-child(1){
+    width: 100%;
+    height: 100%; 
+}
+.atypical-aspect-ratio > div:nth-child(1) > img[src]{
+    width: 100%;
+    height: 100%; 
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+    filter: brightness(50%); 
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.atypical-aspect-ratio > div:nth-child(1) > img[src]:hover{
+    transform: scale(1.08); 
+    filter: brightness(40%); 
+}
+
+.atypical-aspect-ratio > div:nth-child(2){
+    position: absolute;
+    z-index: 2;
+    bottom: 30px; 
+    left: 100px;
+    color: #f3f4f6;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); 
+}
+.atypical-aspect-ratio > div:nth-child(2) h1{
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 2px; 
+    transition: font-size 1s ease; 
+}
+.atypical-aspect-ratio > div:nth-child(2) > div p{
+    margin-left: 10px;
+    font-size: 0.99rem; 
+    opacity: 0.85;
+    transition: font-size 1s ease; 
+}
+
+.display-ar-6-1 > a:nth-child(1){ /* Tournament Link 1 */
+    grid-area: itemOne;
+}
+.display-ar-6-1 > a:nth-child(2){ /* Tournament Link 2 */ 
+    grid-area: itemTwo;
+}
+.display-ar-6-1 > a:nth-child(3){ /* Tournament Link 3 */
+    grid-area: itemThree;
+}
+.display-ar-6-1 > a:nth-child(4){ /* Tournament Link 4 */ 
+    grid-area: itemFour; 
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Mobile and Desktop Miniaturization Section| */

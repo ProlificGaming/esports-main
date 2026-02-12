@@ -248,18 +248,32 @@ body{
     --sidebar-button-bg-color: #f12711; 
 
     /* Miscellaneous */
+    --button-color: #f12711; 
+    --button-color-hover: #f1271156;
     --border-color: #f12711; 
+    --border-color-hover: #f1271156;
     --border-color-2: rgba(255, 255, 255, 0.1);
     --hover-color-1: white;
     --hover-color-2: #f12711a4;
     --bg-color: rgba(255, 255, 255, 0.05);
+    --bg-color-2: #f12711;
     --add-image-window-icon-color: white;  
     --add-image-window-bg-color: rgba(255, 255, 255, 0.849);
     --add-image-window-width: 0px;
     --add-image-window-height: 0px;
     --update-image-window-width: 0px;
     --update-image-window-height: 0px; 
+    --update-tournament-window-width: 0px;
+    --update-tournament-window-height: 0px; 
+    --delete-tournament-window-top-position: 0px; 
+    --delete-tournament-window-left-position: 0px;
     --admin-update-delete-tournament-icon-color: white;
+    --button-border-color: rgba(255, 255, 255, 0.1); 
+    --button-background-color: rgba(0, 0, 0, 0.301);
+    --button-background-hover-color: rgba(0, 0, 0, 0.63);
+
+    --delete-tournament-window-border-color: rgba(255, 255, 255, 0.1);
+    --delete-tournament-window-bg-color: rgba(0, 0, 0, 0.925);
 }
 
 .theme-white{
@@ -438,6 +452,219 @@ body{
     border: 1px solid var(--admin-control-panel-section-button-color-hover);
     background-color: var(--admin-control-panel-section-button-color-hover);
 }
+
+
+/* Admin Control Panel Section|Admin Update Delete Control Panel */ 
+.admin-update-delete-control-panel{
+    display: flex; 
+    flex-direction: column;
+    gap: 10px; 
+
+    border: 1px solid var(--section-1-border-color); 
+    background-color: var(--section-1-background-color); 
+    border-radius: 12px; 
+    width: 800px;
+    padding: 20px; 
+    backdrop-filter: blur(6px);
+    color: #f3f4f6; 
+}
+.admin-update-delete-control-panel > h3{ /* Admin Update Delete Control Panel Title: Update or delete tournament/event logs */
+    margin-bottom: 10px;
+}
+.admin-update-delete-control-panel > fieldset{ /* Admin Update Delete Control Panel Fieldset */
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+}
+.admin-update-delete-control-panel > fieldset > legend{ /* Admin Update Delete Control Panel Legend */
+    font-size: 20px;  
+}
+#admin-update-delete-form{ /* Admin Update Delete Control Panel|Admin Update Delete Tournament Form */ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px;
+
+    border: 1px solid var(--border-color); 
+    border-radius: 12px;
+    padding: 5px; 
+    font-size: 17px; 
+    cursor: pointer; 
+    position: relative; 
+    overflow-x: hidden;
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(29, 26, 26, 0.966) #f12711;
+}
+#admin-update-delete-form:hover{
+    background-color: var(--primary-bg-color-1); 
+}
+#admin-update-delete-form > div:nth-child(3){ /* Admin Update Delete Tournament Form|Update & Delete Button container */
+    display: flex;
+    justify-content: center; 
+    gap: 25px; 
+
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px; 
+    padding: 5px; 
+}
+#admin-update-delete-form > div:nth-child(3) > div{ /* Admin Update Delete Tournament Form|Update Container & Delete Container */
+    display: flex;
+    align-items: center;
+
+    /* border: 1px solid green;  */
+}
+#admin-update-delete-form > div:nth-child(3) > div > svg{ /* Update Container & Delete Container|Update and Delete Icons */
+    width: 40px; 
+    fill: var(--add-image-window-icon-color);
+}
+#admin-update-delete-form > div:nth-child(3) > div > button{ /* Update Container & Delete Container|Update and Delete Buttons */
+    border: 1px solid var(--button-border-color);
+    background-color: var(--button-background-color); 
+    border-radius: 12px;  
+    font-size: 16px;
+    color: #f3f4f6; 
+    padding: 5px 20px;
+    cursor: pointer; 
+}
+#admin-update-delete-form > div:nth-child(3) > div > button:hover{
+    border: 1px solid var(--button-background-hover-color); 
+    background-color: var(--button-background-hover-color); 
+}
+#admin-update-delete-form > div:nth-child(4){ /* Admin Update Delete Tournament Form|Delete Tournament Window */ 
+    border: 1px solid var(--delete-tournament-window-border-color); 
+    border-radius: 12px; 
+    background-color: var(--delete-tournament-window-bg-color); 
+    position: absolute;
+    /* top: var(--delete-tournament-window-top-position); */
+    /* left: var(--delete-tournament-window-left-position);  */
+    top: 20px;
+    left: 170px; 
+    transition: transform 0.6s ease;
+    transform: perspective(800px) translateZ(-5000px); 
+    padding: 5px;
+    width: 400px; 
+    height: 150px; 
+}
+.open-delete-tournament-window{
+    transform: perspective(800px) translateZ(0) !important; 
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(1){ /* Delete Tournament Window|Delete Tournament Window Close Button Container */
+    display: flex;
+    justify-content: end; 
+
+    padding: 3px; 
+    /* border: 1px solid orange;  */
+    margin-bottom: 5px; 
+}
+
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(1) > svg{ /* Delete Tournament Window Close Button Container|Close Button Icon */
+    width: 40px; 
+    fill: white; 
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(1) > svg:hover{
+    fill: var(--hover-color-2);  
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(2){ /* Delete Tournament Window|Delete Tournament Window Delete Button Container */
+    display: flex; 
+    flex-direction: column;
+    gap: 5px;
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(2) > p{ /* Delete Tournament Window Delete Button Container|Delete Button Prompt */
+    font-size: 18px;
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(2) > button{ /* Delete Tournament Window Delete Button Container|Main Delete Button */
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    background-color: var(--button-color);
+    padding: 5px 20px; 
+    font-size: 15px;
+    color: #f3f4f6;
+    cursor: pointer;
+    width: 100px; 
+}
+#admin-update-delete-form > div:nth-child(4) > div:nth-child(2) > button:hover{
+    border: 1px solid var(--border-color-hover);
+    background-color: var(--button-color-hover); 
+}
+#admin-update-delete-form > div:nth-child(5){ /* Admin Update Delete Touranment Form| Update Tournament Window */
+    /* border-radius: 12px;  */
+    padding: 5px;
+    position: absolute; 
+    top: 0;
+    left: 0; 
+    width: var(--update-tournament-window-width); 
+    height: var(--update-tournament-window-height);
+    border: 1px solid var(--sidebar-border-color); 
+    background-color: rgba(29, 26, 26, 0.966);
+    transition-property: transform;
+    transition-duration: 0.6s; 
+    transition-timing-function: ease-in-out;
+    transform: translateX(-100%);
+}
+.open-update-tournament-window{
+    transform: translateX(0) !important;  
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(1){
+    display: flex;
+    justify-content: end; 
+    
+    padding: 5px;
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(1) > svg{
+    width: 40px; 
+    fill: #f12711;
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(1) > svg:hover{
+    fill: var(--hover-color-1); 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    border: 1px solid green;
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > label{
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    color: #f3f4f6; 
+    font-size: 17px; 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > input{
+    width: 350px;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid var(--section-1-border-color);
+    border-radius: 12px; 
+    font-size: 15px; 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > select{
+    width: 200px;
+    border: 1px solid var(--section-1-border-color); 
+    border-radius: 12px; 
+    padding: 3px 5px 3px 5px;
+    font-size: 15px; 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > textarea{
+    border-radius: 12px; 
+    border: 1px solid var(--section-1-border-color);  
+    padding: 5px;
+    font-size: 15px;
+    resize: none; 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > button{
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    background-color: var(--button-color); 
+    padding: 5px 20px;
+    font-size: 15px;
+    color: #f3f4f6; 
+    cursor: pointer; 
+}
+#admin-update-delete-form > div:nth-child(5) > div:nth-child(2) > div > button:hover{
+    border: 1px solid var(--button-color-hover);
+    background-color: var(--border-color-hover);
+}
+
 
 
 /* Admin Control Panel Section|Section 2 */ 
@@ -736,11 +963,69 @@ body{
 }
 
 
+/* |Admin Bracket Control Panel| */
+.admin-bracket-control-panel{
+    /* display: flex;
+    flex-direction: column; 
+    gap: 10px; */
 
+    border: 1px solid var(--section-1-border-color); 
+    background-color: var(--bg-color); 
+    border-radius: 12px; 
+    width: 800px;
+    padding: 10px;
+    color: #f3f4f6;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    backdrop-filter: blur(6px); 
+}
+.admin-bracket-control-panel > h3{
+    margin-bottom: 10px; 
+}
+.admin-bracket-control-panel > fieldset > legend{
+    font-size: 20px; 
+}
+#admin-bracket-input{ /* Form: Admin Bracket Input - Main content will be in each form. */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    padding: 5px; 
+    cursor: pointer; 
+}
+#admin-bracket-input:hover{
+    background-color: var(--bg-color-2); 
+}
+.admin-bracket-input-details-container{ /* Admin Bracket Input Details Container */
+    border: 1px solid var(--border-color-2); 
+    border-radius: 12px; 
+    padding: 5px; 
+    font-size: 18px; 
+}
+.admin-bracket-input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    
+    border: 1px solid var(--border-color-2); 
+    border-radius: 12px; 
+    padding: 5px;
+}
+.admin-bracket-input-container > div{
+    display: flex;
+    gap: 10px; 
+
+    /* border: 1px solid green; */
+    font-size: 13px; 
+}
+
+
+/* Note: Section 3 will be refactored for better functionality when using the tournament queue. */
+/* Admin Control Panel Section|Section 3 */ 
 .admin-control-panel-section-3{ /* Admin Control Panel Section|Section 3 */
     display: flex;
     flex-direction: column;
-    gap: 10px;
 
     background-color: var(--bg-color);
     border: 1px solid var(--section-1-border-color); 
@@ -780,8 +1065,403 @@ body{
 #admin-assign-tournaments > label:hover{
     background-color: var(--primary-bg-color-1);
 }
-#admin-assign-tournaments > label > input{
+#admin-assign-tournaments > label > div > input{
     cursor: pointer;
+}
+#admin-assign-tournaments > button{
+    border: 1px solid var(--border-color);
+    border-radius: 12px; 
+    background-color: var(--button-color);
+    padding: 5px 20px;
+    width: 100px; 
+    font-size: 15px; 
+    cursor: pointer; 
+    color: #f3f4f6; 
+}
+#admin-assign-tournaments > button:hover{
+    border: 1px solid var(--border-color-hover);
+    background-color: var(--button-color-hover);
+}
+
+/*************************************************************************************************************************************/
+/*************************************************************************************************************************************/
+/* |Admin Application Layout Main| */
+.admin-application-layout-section{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
+
+    /* border: 1px solid red; */
+}
+.admin-application-layout-section > h2{
+    color: #f3f4f6;
+    font-size: 25px; 
+    letter-spacing: 1px; 
+}
+.homepage-tournament-layout-section{
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+
+    border: 1px solid var(--section-border-color);
+    border-radius: 12px; 
+    background-color: var(--section-1-background-color); 
+    width: 800px; 
+    padding: 20px; 
+    backdrop-filter: blur(6px); 
+    color: #f3f4f6; 
+}
+.homepage-tournament-layout-section > form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    /* border: 1px solid red; */
+}
+.homepage-tournament-layout-section > form > label{
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    padding: 5px;
+    cursor: pointer; 
+}
+.homepage-tournament-layout-section > form > label:hover{
+    background-color: var(--primary-bg-color-1);
+}
+.homepage-tournament-layout-section > form > label > div:nth-child(1){
+    margin-bottom: 20px; 
+}
+.homepage-tournament-layout-section > form > label > div:nth-child(1) > h4{
+    display: inline;
+}
+.homepage-tournament-layout-section > form > label > div:nth-child(2) > h4{
+    margin-bottom: 5px; 
+    font-size: 18px; 
+}
+
+/* Tournament Section Aspect Ratio 1:1 */ 
+.tournament-section-ar-1-1 > div:nth-child(2) > div{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto, 1fr);
+    gap: 5px; 
+    grid-template-areas: 
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemFour itemFour"
+        "itemFive itemFive itemSix itemSix";
+
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Needs var for appearance */
+    border-radius: 12px; 
+    padding: 5px; 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(n + 3){
+    display: flex;
+    gap: 10px; 
+
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Needs var for appearance */ 
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.05); /* Needs var for appearance */
+    backdrop-filter: blur(6px); 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1){
+    width: 100px; /* 1 */ 
+    height: 100px; /* 1 */
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Needs var for appearance */
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1) > img[src]{
+    width: 100%;
+    height: 100%; 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(1){
+    grid-area: itemOne;
+    font-size: 18px; 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(2){
+    grid-area: itemTwo; 
+    font-size: 18px; 
+    text-align: end; 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(3){
+    grid-area: itemThree;
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(4){
+    grid-area: itemFour; 
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(5){
+    grid-area: itemFive;
+}
+.tournament-section-ar-1-1 > div:nth-child(2) > div > div:nth-child(6){
+    grid-area: itemSix;  
+}
+
+/* Tournament Section Aspect Ratio 3:2 */
+.tournament-section-ar-3-2 > div:nth-child(2) > div{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    gap: 5px; 
+    grid-template-areas:
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemFour itemFour"
+        "itemFive itemFive itemSix itemSix";
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* Needs var for appearance */ 
+    border-radius: 12px; 
+    padding: 5px;  
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(n + 3){
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Needs var for appearance */ 
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.05); /* Needs var for appearance */
+    backdrop-filter: blur(6px); 
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1){
+    width: 300px; /* 3 */ 
+    height: 200px;  /* 2 */ 
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Needs var for appearance */
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(n + 3)  div:nth-child(1) > img[src]{
+    width: 100%; 
+    height: 100%; 
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(1){
+    grid-area: itemOne;
+    font-size: 18px; 
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(2){
+    grid-area: itemTwo;
+    font-size: 18px; 
+    text-align: end; 
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(3){
+    grid-area: itemThree;
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(4){
+    grid-area: itemFour;
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(5){
+    grid-area: itemFive;
+}
+.tournament-section-ar-3-2 > div:nth-child(2) > div > div:nth-child(6){
+    grid-area: itemSix; 
+}
+
+/* Tournament Section Aspect Ratio 4:3 */ 
+.tournament-section-ar-4-3 > div:nth-child(2) > div{ 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto, 1fr); 
+    gap: 5px;
+    grid-template-areas:
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour"
+        "itemFive itemFive itemFive itemFive"
+        "itemSix itemSix itemSix itemSix";
+    
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Needs var for appearance */
+    border-radius: 12px; 
+    padding: 5px; 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(n + 3){
+    display: flex; 
+    gap: 10px; 
+
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Needs var for appearance */ 
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.05); /* Needs var for appearance */
+    backdrop-filter: blur(6px); 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1){
+    width: 300px; /* 300 */ 
+    height: 225px;  /* 225 */ 
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Needs var for appearance */
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1) > img[src]{
+    width: 100%;
+    height: 100%; 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(1){
+    grid-area: itemOne;
+    font-size: 18px; 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(2){
+    grid-area: itemTwo;
+    font-size: 18px; 
+    text-align: end; 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(3){
+    grid-area: itemThree; 
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(4){
+    grid-area: itemFour;
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(5){
+    grid-area: itemFive;
+}
+.tournament-section-ar-4-3 > div:nth-child(2) > div > div:nth-child(6){
+    grid-area: itemSix; 
+}
+
+/* Tournament Section Aspect Ratio 6:1 */
+.tournament-section-ar-6-1 > div:nth-child(2) > div{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    gap: 10px;
+    grid-template-areas:
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour"
+        "itemFive itemFive itemFive itemFive"
+        "itemSix itemSix itemSix itemSix";
+
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Needs var for appearance */
+    border-radius: 12px; 
+    padding: 5px;
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(n + 3){
+    position: relative; 
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1){
+    width: 600px; /* 600 */
+    height: 100px; /* 100 */ 
+    overflow: hidden;
+    border-radius: 12px;
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1) > img[src]{
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; 
+    object-fit: cover;
+    cursor: pointer; 
+    filter: brightness(50%);
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(2){
+    position: absolute;
+    bottom: 20px; 
+    left: 10px; 
+    z-index: 2; 
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7); 
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(1){
+    grid-area: itemOne;
+    font-size: 18px; 
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(2){
+    grid-area: itemTwo;
+    font-size: 18px; 
+    text-align: end; 
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(3){
+    grid-area: itemThree;
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(4){
+    grid-area: itemFour;
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(5){
+    grid-area: itemFive;
+}
+.tournament-section-ar-6-1 > div:nth-child(2) > div > div:nth-child(6){
+    grid-area: itemSix; 
+}
+
+/* Tournament Section Aspect Ratio 16:9 */ 
+.tournament-section-ar-16-9 > div:nth-child(2) > div{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(auto, 1fr);
+    gap: 5px;
+    grid-template-areas:
+        "itemOne itemOne . itemTwo"
+        "itemThree itemThree itemThree itemThree"
+        "itemFour itemFour itemFour itemFour"
+        "itemFive itemFive itemFive itemFive"
+        "itemSix itemSix itemSix itemSix"; 
+    
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Needs var for appearance. */
+    border-radius: 12px; 
+    padding: 5px;
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(n + 3){
+    display: flex;
+    gap: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Needs var for appearance */ 
+    border-radius: 12px; 
+    cursor: pointer;
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.05); /* Needs var for appearance */
+    backdrop-filter: blur(6px); 
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1){
+    width: 400px; /* 400 */ 
+    height: 224.7px;  /* 224.7 */ 
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Needs var for appearance */
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(n + 3) > div:nth-child(1) > img[src]{
+    width: 100%;
+    height: 100%;  
+    object-fit: cover;
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(1){
+    grid-area: itemOne;
+    font-size: 18px; 
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(2){
+    grid-area: itemTwo;
+    font-size: 18px; 
+    text-align: end;  
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(3){
+    grid-area: itemThree;
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(4){
+    grid-area: itemFour;
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(5){
+    grid-area: itemFive; 
+}
+.tournament-section-ar-16-9 > div:nth-child(2) > div > div:nth-child(6){
+    grid-area: itemSix; 
+}
+
+.homepage-tournament-layout-section > form > div > button{
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    background-color: var(--button-color); 
+    padding: 5px 20px;
+    font-size: 15px;
+    color: #f3f4f6; 
+    cursor: pointer; 
+    width: 130px; 
+}
+.homepage-tournament-layout-section > form > div > button:hover{
+    border: 1px solid var(--button-color-hover);
+    background-color: var(--border-color-hover);
 }
 
 /*************************************************************************************************************************************/
@@ -804,4 +1484,14 @@ body{
 }
 .click{
     border: 1px solid blue;
+}
+.blur-tournament-logs::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px); 
 }

@@ -1,0 +1,428 @@
+/* |Tournament Content| */
+#tournament-content{
+    border: 1px solid red;
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Tournament Content Title| */
+#tournament-content-title{
+    color: #f3f4f6; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    font-size: 25px;
+    margin-left: 150px; 
+    margin-top: 20px;
+    /* border: 1px solid orange; */
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Tournament Games Slideshow| */
+#tournament-games-slideshow{
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    max-width: 1219px;
+    color: #f3f4f6; 
+    /* border: 1px solid green;  */
+    margin: 30px auto; 
+    /* padding: 50px 200px 50px 200px;     */
+}
+#games-slideshow-viewport{
+    overflow: hidden; 
+    /* border: 1px solid white; */
+    width: 100%; 
+    padding: 10px; 
+}
+#games-slideshow-container{
+    display: flex;
+    gap: 20px; 
+
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+    /* border: 1px solid purple;  */
+}
+.game-card{
+    flex: 0 0 calc(20% - 16px); /* Review this again */
+    cursor: pointer;
+    border-radius: 16px; 
+    overflow: hidden;  
+    background-color: rgba(255, 255, 255, 0.05); /* Theme appearance edit */
+    backdrop-filter: blur(10px);
+    text-align: center; 
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+.game-card img{
+    width: 200px; /* Original: 100% */ 
+    height: 117px; /* Original: 140px */
+    object-fit: cover; 
+    border-radius: 16px; 
+}
+.game-card span{
+    display: block; 
+    padding: 12px;
+    color: #fff;
+    font-weight: 600;
+}
+.game-card:hover{
+    transform: perspective(400px) translateY(-6px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+}
+
+.current-card{
+    transform: perspective(400px) translateY(-6px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+}
+
+/* Buttons */
+.slideshow-button{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer; 
+    font-size: 2rem;
+    color: #fff; 
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px); 
+    transition: background-color 0.3s; 
+    z-index: 2; 
+}
+.slideshow-button:hover{
+    background-color: rgba(0,0,0,0.9); 
+}
+.slideshow-button.left{
+    margin-right: 12px; 
+}
+.slideshow-button.right{
+    margin-left: 12px; 
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Tournaments Viewport Title| */
+#tournaments-viewport-title{ /* Title: Tournaments & Events */ 
+    color: #f3f4f6; 
+    /* border: 1px solid green; */
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Tournament Viewport Section| */
+#tournaments-viewport-section{
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; 
+
+    border: 1px solid orange; 
+    padding: 100px 200px 100px 200px; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    color: #f3f4f6; 
+}
+#tournaments-viewport-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto; 
+
+    padding: 10px;
+    /* border: 1px solid green;  */
+}
+.game-viewport{
+    grid-row: 1 / 2; 
+    grid-column: 1 / 2;
+
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+
+    transform: perspective(800px) translateX(-2000px); 
+    transition: transform 0.3s ease;
+    border: 1px solid blue;
+    padding: 5px; 
+    text-decoration: none;
+    color: #f3f4f6;
+}
+.game-viewport > h2{ /* Game Viewport Title: All */
+    
+}
+.game-viewport-game{ /* Game Viewport Game: The main game category in the "Tournament & Events" viewport. */ 
+    text-decoration: none; 
+    color: #f3f4f6;
+}
+.game-viewport-all-game-title{ /* Game Viewport All Game Title: Apex Legends, Warzone, Marvel Rivals, etc. */
+    margin-bottom: 10px;
+    margin-left: 12px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Theme appearance edit */
+}
+.game-viewport-single-game-title{ /* Game Viewport Single Game Title: Apex Legends, Warzone, Marvel Rivals, etc. */
+    margin-left: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Theme appearance edit */ 
+}
+.game-viewport-tournament-link{ /* */
+    text-decoration: none;
+    color: #f3f4f6;
+}
+.game-viewport-tournament-details-container{ /* */
+
+}
+.game-viewport-tournament-image{ /* */ 
+
+}
+.game-viewport-tournament-details{ /* */ 
+
+}
+.game-viewport-game-coming-soon{ /* Game Viewport Game Coming Soon */
+    margin-left: 25px;
+    font-size: 18px;
+}
+.game-select{ /* The game that is selected in the 'Tournaments Viewport Container'. */
+    transform: perspective(800px) translateX(0px); 
+}
+
+/* |Tournaments Viewport|Aspect Ratio 16:9| */
+.game-viewport-tournament-details-container-ar-16-9{ /* Game Viewport Tournament Details Container Aspect Ratio 16:9 */ 
+    
+}
+
+/* |Tournaments Viewport|Aspect Ratio 6:1| */ 
+.game-viewport-tournament-details-container-ar-6-1{ /* Game Viewport Tournament Details Container Aspect Ratio 6:1 */
+    position: relative;
+    overflow: hidden;
+    /* border: 1px solid purple;  */
+    margin-bottom: 15px;  
+    width: 1200px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease; 
+}
+.game-viewport-tournament-details-container-ar-6-1:hover{
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); 
+}
+.game-viewport-tournament-image-container-ar-6-1{ /* Game Viewport Tournament Image Container Aspect Ratio 6:1 */ 
+    width: 100%;
+    height: 100%; 
+}
+.game-viewport-tournament-image-container-ar-6-1 > img[src]{ /* Game Viewport Tournament Image Container Aspect Ratio 6:1|Image */ 
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover; 
+    cursor: pointer; 
+    filter: brightness(50%); 
+    transition: transform 0.3s ease, filter 0.3s ease; 
+}
+.game-viewport-tournament-image-container-ar-6-1 > img[src]:hover{
+    transform: scale(1.08); 
+    filter: brightness(40%); 
+}
+.game-viewport-tournament-details-ar-6-1{ /* Game Viewport Tournaments Details Aspect Ratio 6:1 */
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 100px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); 
+}
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+/* |Single Tournament Content| */
+#single-tournament-content{ /* The main content container for a single tournament. */
+    border: 1px solid red;
+    color: #f3f4f6;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+}
+.single-tournament-section{
+    border: 1px solid green;
+    padding: 5px; 
+}
+.single-tournament-container{ /* Single Tournament Container */
+    border: 1px solid orange; 
+    position: relative;
+    height: 100%;
+} 
+.single-tournament-image-container{ /* Single Tournament Image Container */
+    width: 1200px;
+    position: relative; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-top: 100px; 
+    margin-left: 500px; 
+    transform: perspective(800px) rotateY(30deg); 
+    transition: box-shadow 0.3s ease, transform 0.8s ease; 
+}
+.single-tournament-image-container:hover{
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.single-tournament-image-container > img[src]{
+    width: 100%;
+    height: 100%; 
+    border-radius: 12px;
+    cursor: pointer;
+    filter: brightness(50%);
+    transition: transform 0.3s ease, filter 0.3s ease;   
+}
+.single-tournament-image-container > img[src]:hover{
+    filter: brightness(40%);
+}
+.single-tournament-image-container-box-shadow-added{
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25) !important;
+}
+.single-tournament-image-filter-added{
+    filter:brightness(40%) !important; 
+}
+.quad{
+    position: absolute; 
+    z-index: 1;
+    border: 1px solid red; 
+    cursor: pointer;
+}
+.quad-1{
+    left: 0px; 
+    width: 300px; 
+    height: 100px; 
+}
+.quad-2{
+    right: 0px; 
+    width: 500px;
+    height: 100px; 
+}
+.quad-3{
+    bottom: 0px; 
+    width: 300px; 
+    height: 100px; 
+}
+.quad-4{
+    right: 0px;
+    bottom: 0px; 
+    width: 500px;
+    height: 100px; 
+}
+
+/* Tournament backgrounds */
+.apex-legends-bg{ /* Apex Legends Background */
+    background-image: url("../images/standardGameImages/apex-legends-tournament-bg.jpg"); 
+    background-size: 60%; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    height: 600px;
+    width: 400px; 
+    border: 1px solid lightcoral;
+    position: fixed; 
+    top: 250px; 
+    left: 0; 
+    width: 100%; 
+    z-index: -1; 
+    filter: grayscale(100%) brightness(20%); 
+} 
+
+.single-tournament-details-container{ /* Single Tournament Details Container */ 
+    display: flex;
+    gap: 20px;
+
+    /* border: 1px solid white; */
+    margin: 0 auto;
+    margin-top: 120px; 
+    max-width: 1400px; 
+    padding: 10px; 
+}
+.single-tournament-details-container > div{ /* Single Tournament Details Container|Details & TimeZones */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Theme Appearance Edit */
+    background-color: rgba(255, 255, 255, 0.08); /* Theme Appearance Edit */
+    border-radius: 12px; 
+    padding: 5px; 
+}
+
+
+.single-tournament-details-container > div:nth-child(1){ /* Details Container Item 1 */
+    flex: 1; 
+}
+
+/* Details Container Item 2 - Time Zones Header:Time zones*/ 
+.single-tournament-details-container > div:nth-child(2) > h3{ /* Details Container Item 2|Time Zones Header */
+    margin-bottom: 12px; 
+}
+
+/* Details Container Item 2 - Item 1 */
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(2){ /* Details Container Item 2|Domestic Time Zone Container */
+    display: flex; 
+    flex-direction: column;
+    gap: 5px; 
+
+    /* border: 1px solid blue;  */
+    margin-bottom: 20px; 
+}
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(2) > p:nth-child(1){ /* Domestic Time Zone Container|Domestic Time Zone Title */
+    /* border: 1px solid black;  */
+    font-size: 17px; 
+}
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(2) > p:nth-child(n + 2){ /* Domestic Time Zone Container|Time, UTC Zone, Zone Location  */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: auto;
+    gap: 3px; 
+
+    /* border: 1px solid red; */
+}
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(2) > p:nth-child(n + 2) > span{ /* Domestic Time Zone Container|Individual Times, UTC Zones, Zone Location */
+    /* border: 1px solid orange; */
+}
+
+/* Details Container Item 2 - Item 2 */ 
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(3){ /* Details Container Item 2|International Time Zone Container */
+    display: flex;
+    flex-direction: column; 
+    gap: 5px;
+
+    /* border: 1px solid green; */
+}
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(3) > p:nth-child(1){ /* International Time Zone Container|International Time Zone Title */ 
+    font-size: 17px; 
+}
+.single-tournament-details-container > div:nth-child(2) > div:nth-child(3) > p:nth-child(n + 2){ 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: auto; 
+    gap: 3px; 
+    
+    /* border: 1px solid black; */
+}
+
+.single-tournament-signup-container{ /* Single Tournament Signup Container */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto; 
+    grid-template-areas:
+        "itemOne itemOne itemOne itemOne"
+        "itemTwo itemTwo itemThree itemThree";
+    gap: 10px; 
+
+    border: 1px solid orange;
+    margin: 0 auto;
+    margin-top: 20px; 
+    max-width: 600px;
+    padding: 5px; 
+}
+.single-tournament-signup-container > div{
+    /* border: 1px solid green; */
+}
+.single-tournament-signup-container > div:nth-child(1){
+    grid-area: itemOne;
+    border: 1px solid green;
+}
+.single-tournament-signup-container > div:nth-child(2){
+    grid-area: itemTwo;
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Theme Appearance Edit */ 
+    background-color: rgba(255, 255, 255, 0.08); /* Theme Appearance Edit */
+    border-radius: 12px;
+    padding: 5px; 
+}
+.single-tournament-signup-container > div:nth-child(3){
+    grid-area: itemThree;
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Theme Appearance Edit */ 
+    background-color: rgba(255, 255, 255, 0.08); /* Theme Appearance Edit */ 
+    border-radius: 12px; 
+    padding: 5px; 
+}
+
+
+

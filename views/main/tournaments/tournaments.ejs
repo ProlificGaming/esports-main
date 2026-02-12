@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tournaments</title>
+        <link rel="stylesheet" href="/styles/styles.css"> <!-- Main styles for the entire application -->
+        <link rel="stylesheet" href="/styles/tournamentsStyles.css"> <!-- Tournaments styles for the tournament page -->
+
+        <script src="windows/loginWindow.js" defer></script>
+        <script src="design/tournamentsPageContent.js" defer></script>
+    </head>
+
+    <body>
+        <!-- Public Navigation Header -->
+        <%- include('../../utils/nav.ejs') %>
+
+        <!-- Log In Window -->
+        <%- include('../../utils/logInWindow.ejs') %> 
+
+        <!-- Main Tournament Content -->
+        <main id="tournament-content">
+            <!-- Tournament Content Headliner -->
+            <!-- <h1 id="tournament-content-title">Games</h1> -->
+
+            <!-- Tournament Games Slideshow -->
+            <section id="tournament-games-slideshow">
+                <button class="slideshow-button left">&#10094;</button>
+
+                <div id="games-slideshow-viewport">
+                    <div id="games-slideshow-container">
+                        <div class="game-card" data-game="apex">
+                            <img src="../../../images/standardGameImages/apex-legends-tournament-slide.jpg" alt="Apex Legend Tournament Slide">
+                            <span>Apex Legends</span>
+                        </div>
+
+                        <div class="game-card" data-game="warzone">
+                            <img src="../../../images/standardGameImages/warzone-tournament-slide.jpg" alt="Warzone Tournament Slide">
+                            <span>Warzone</span>
+                        </div>
+
+                        <div class="game-card" data-game="all">
+                            <img src="../../../images/standardGameImages/all-games-tournament-slide.png" alt="All Games Tournament Slide">
+                            <span>All</span>
+                        </div>
+                        
+                        <div class="game-card" data-game="valorant">
+                            <img src="../../../images/standardGameImages/valorant-tournament-slide.jpg" alt="Valorant Tournament Slide">
+                            <span>Valorant</span>
+                        </div>
+
+                        <div class="game-card" data-game="overwatch">
+                            <img src="../../../images/standardGameImages/overwatch-tournament-slide.jpg" alt="Overwatch Tournament Slide">
+                            <span>Overwatch</span>
+                        </div>
+
+                        <div class="game-card" data-game="rivals">
+                            <img src="../../../images/standardGameImages/rivals-tournament-slide.jpg" alt="Rivals Tournament Slide">
+                            <span>Marvel Rivals</span>
+                        </div>
+
+                        <div class="game-card" data-game="rocket league">
+                            <img src="../../../images/standardGameImages/rocket-league-tournament-slide.jpg" alt="Rocket League Tournament Slide">
+                            <span>Rocket League</span>
+                        </div>
+
+                        <div class="game-card" data-game="fortnite">
+                            <img src="../../../images/standardGameImages/fortnite-tournament-slide.jpg" alt="Fortnite Tournament Slide">
+                            <span>Fortnite</span>
+                        </div>
+
+                        <div class="game-card" data-game="king of fighters">
+                            <img src="../../../images/standardGameImages/king-of-fighters-tournament-slide.jpg" alt="King of Fighters Tournament Slide">
+                            <span>King of Fighters</span>
+                        </div>
+
+                        <!-- Add as many as you want -->
+                    </div>
+                </div>
+
+                <button class="slideshow-button right">&#10095;</button>
+            </section>
+
+            <!-- Tournaments Viewport Section -->
+            <section id="tournaments-viewport-section">
+                
+                <!-- Tournament Viewport Title -->
+                <h1 id="tournaments-viewport-title">Tournaments & Events</h1>
+
+                <% if (tournaments.length !== 0){ %> 
+
+                    <!-- Tournament Viewport Container -->
+                    <div id="tournaments-viewport-container">
+
+                        <!-- Main section to view the tournaments for certain games. -->
+                        <% if (tournamentsAr.SectionAspectRatio === 'ar-16-9'){ %> <!-- Tournaments Aspect Ratio 16:9 -->
+                            <div class="game-viewport ar-16-9" data-game="all">
+                                <h2>All</h2>
+
+                                <!-- All Apex Legends Tournaments -->
+                                <div class="game-viewport-game game-viewport-game-ar-16-9"></div>
+
+                                <!-- All Marvel Rivals Tournaments -->
+                                <div class="game-viewport-game game-viewport-game-ar-16-9"></div>
+
+                                <!-- All Marvel Rivals Tournaments -->
+                                <div class="game-viewport-game game-viewport-game-ar-16-9"></div>
+                            </div>
+
+                            <!-- Marvel Rivals Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="rivals"></div>
+
+                            <!-- Call of Duty Warzone Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="warzone"></div>
+
+                            <!-- Apex Legends Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="apex"></div>
+
+                            <!-- Valorant Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="valorant"></div>
+
+                            <!-- Overwatch Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="overwatch"></div>
+
+                            <!-- Rocket League Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="rocket league"></div>
+
+                            <!-- Fortnite Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="fortnite"></div>
+
+                            <!-- King of Fighters Tournaments -->
+                            <div class="game-viewport ar-16-9" game-data="king of fighters"></div>
+
+                        <% } else if (tournamentsAr.SectionAspectRatio === 'ar-1-1'){ %> <!-- Tournaments Aspect Ratio 1:1 -->
+
+                        <% } else if (tournamentsAr.SectionAspectRatio === 'ar-3-2'){ %> <!-- Tournaments Aspect Ratio 3:2 -->
+
+                        <% } else if (tournamentsAr.SectionAspectRatio === 'ar-4-3'){ %> <!-- Tournaments Aspect Ratio 4:3 -->
+
+                        <% } else if (tournamentsAr.SectionAspectRatio === 'ar-6-1'){ %> <!-- Tournaments Aspect Ratio 6:1 -->
+                            <div class="game-viewport ar-6-1" data-game="all">
+                                <h2>All</h2>
+
+                                <!-- All Apex Legends Tournaments -->
+                                <h3 class="game-viewport-all-game-title">Apex Legends</h3>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Apex Legends'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Apex Legends'){ %>
+                                                    <!--TODO: Make sure to test if the tournament is 'public' in a conditional statement. -->
+                                                    <% if (tournament.status === 'PUBLIC'){ %>
+                                                        
+                                                    <% } %>
+                                            
+
+                                                    <!-- Original detailed code: place inside the 'tournament status conditional'-->
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-game game-viewport-game-ar-6-1">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no imag">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Apex Legends tournament or events currently.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+
+                                <!-- All Marvel Rivals Tournaments -->
+                                <h3 class="game-viewport-all-game-title">Marvel Rivals</h3>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Marvel Rivals'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Marvel Rivals'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-game game-viewport-game-ar-6-1">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Marvel Rivals tournaments or events currently.</p>
+                                        <% } %> 
+                                    <% } %>
+                                <% }); %>
+
+                                <!-- All Call of Duty Warzone Tournaments -->
+                                <h3 class="game-viewport-all-game-title">Call of Duty: Warzone</h3>
+                                <% gameSelections.forEach((selection) => { %> 
+                                    <% if (selection.game === 'Call of Duty Warzone'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Call of Duty Warzone'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-game game-viewport-game-ar-6-1">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Call of Duty tournaments or events currently.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+
+                            </div>
+
+                            <!-- Marvel Rivals Tournaments -->
+                            <div class="game-viewport ar-6-1" data-game="rivals">
+                                <h2 class="game-viewport-single-game-title">Marvel Rivals</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Marvel Rivals'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Marvel Rivals'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Marvel Rivals tournaments or events currently.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+
+                            <!-- Call of Duty Warzone Tournaments -->
+                            <div class="game-viewport ar-6-1" data-game="warzone">
+                                <h2 class="game-viewport-single-game-title">Warzone</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Call of Duty Warzone'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %> 
+                                                <% if (tournament.game === 'Call of Duty Warzone'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %> 
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Call of Duty tournaments or events currently.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+
+                            <!-- Apex Legends Tournaments -->
+                            <div class="game-viewport" data-game="apex">
+                                <h2 class="game-viewport-single-game-title">Apex Legends</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Apex Legends'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Apex Legends'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %> 
+                                                            </div>
+                                                        
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %> 
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">No Apex Legends tournaments or events currently.</p>
+                                        <% } %> 
+                                    <% } %> 
+                                <% }); %> 
+                            </div>
+
+                            <!-- Valorant Tournaments -->
+                            <div class="game-viewport" data-game="valorant">
+                                <h2 class="game-viewport-single-game-title">Valorant</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Valorant'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Valorant'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %> 
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %> 
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">Valorant coming soon.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+
+                            <!-- Overwatch Tournaments -->
+                            <div class="game-viewport" data-game="overwatch">
+                                <h2 class="game-viewport-single-game-title">Overwatch</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Overwatch'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %> 
+                                                <% if (tournament.game === 'Overwatch'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no imag ">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %> 
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">Overwatch coming soon.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+
+                            <!-- Rocket League Tournaments -->
+                            <div class="game-viewport" data-game="rocket league">
+                                <h2 class="game-viewport-single-game-title">Rocket League</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Rocket League'){ %>
+                                        <% if (selection.present){ %> 
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'Rocket League'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>    
+                                                <% } %> 
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">Rocket League coming soon.</p>
+                                        <% } %> 
+                                    <% } %>
+                                <% }); %>
+                            </div>
+
+                            <!-- Fortnite Tournaments -->
+                            <div class="game-viewport" data-game="fortnite">
+                                <h2 class="game-viewport-single-game-title">Fortnite</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'Fortnite'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %> 
+                                                <% if (tournament.game === 'Fortnite'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %> 
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %> 
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">Fortnite coming soon.</p>
+                                        <% } %> 
+                                    <% } %>
+                                <% }); %>  
+                            </div>
+
+                            <!-- King of Fighters Tournaments -->
+                            <div class="game-viewport" data-game="king of fighters">
+                                <h2 class="game-viewport-single-game-title">King of Fighters</h2>
+                                <% gameSelections.forEach((selection) => { %>
+                                    <% if (selection.game === 'King of Fighters'){ %>
+                                        <% if (selection.present){ %>
+                                            <% tournaments.forEach((tournament) => { %>
+                                                <% if (tournament.game === 'King of Fighters'){ %>
+                                                    <a href="/tournaments/<%= tournament.name %>" class="game-viewport-tournament-link">
+                                                        <div class="game-viewport-tournament-details-container game-viewport-tournament-details-container-ar-6-1">
+                                                            <div class="game-viewport-tournament-image-container game-viewport-tournament-image-container-ar-6-1">
+                                                                <% if (tournament.bannerUrl !== null){ %>
+                                                                    <img src="<%= tournament.bannerUrl %>" alt="<%= tournament.name %> image">
+                                                                <% }else{ %>
+                                                                    <img src="../../../images/standardGameImages/default_image_aspect_ratio-6-1.png" alt="no image">
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div class="game-viewport-tournament-details game-viewport-tournament-details-ar-6-1">
+                                                                <h3><%= tournament.name %></h3>
+                                                                <div>
+                                                                    <p><span>TYPE:</span> <span><%= tournament.type %></span></p>
+                                                                    <p><span>PLAYER COUNT:</span> <span><%= tournament.playerCount %></span></p>
+                                                                    <p><span>START DATE:</span> <span><%= tournament.startDate %></span></p>
+                                                                    <p><span>TIME:</span> <span><%= tournament.time %></span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                <% } %>
+                                            <% }); %>
+                                        <% }else{ %>
+                                            <p class="game-viewport-game-coming-soon">King of Fighters coming soon.</p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %> 
+                            </div>
+
+                        <% } %>
+                    </div>
+                <% } else { %> 
+                    <div id="tournaments-viewport-container">
+                        <p>No tournaments have been posted.</p>
+                    </div>
+                <% } %> 
+            </section>
+        </main>
+    </body>
+</html>

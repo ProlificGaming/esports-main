@@ -9,7 +9,7 @@ const storage = new CloudinaryStorage({
         allowedFormats: ["jpg", "png", "jpeg", "gif", "webp"],
         transformation: [
             { width: 3000, crop: "limit" },             // prevent massive images
-            { aspect_ratio: "6:1", crop: "fill" },      // enforce banner shape
+            // { aspect_ratio: "6:1", crop: "fill" },      // enforce banner shape
             { quality: "auto" },
         ],
     }),
